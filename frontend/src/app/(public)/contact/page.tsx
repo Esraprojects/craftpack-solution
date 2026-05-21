@@ -3,7 +3,7 @@ import ContactSection from '@/components/forms/ContactSection';
 
 export const metadata: Metadata = {
   title: 'Contact Us — Craftpack Solution',
-  description: 'Get in touch with Craftpack Solution. Located in Addis Ababa, Ethiopia. Available Monday–Saturday 8AM–8PM. 24-hour response guarantee.',
+  description: 'Get in touch with Craftpack Solution. Located in Gofa Camp & Gurdshola, Addis Ababa, Ethiopia. Open Monday–Saturday 8AM–6PM EAT.',
 };
 
 export default function ContactPage() {

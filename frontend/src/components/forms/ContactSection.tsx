@@ -30,10 +30,10 @@ const inquiryTypes = [
 ] as const;
 
 const contactInfo = [
-  { icon: MapPin, title: 'Visit Us',    lines: ['Bole Sub-city, Wereda 03', 'Addis Ababa, Ethiopia'] },
-  { icon: Phone,  title: 'Call Us',     lines: ['+251 911 000 000', '+251 116 000 000'] },
-  { icon: Mail,   title: 'Email Us',    lines: ['info@craftpacksolution.com', 'sales@craftpacksolution.com'] },
-  { icon: Clock,  title: 'Working Hours', lines: ['Mon–Sat: 8:00 AM – 8:00 PM', 'Emergency: Always reachable'] },
+  { icon: MapPin, title: 'Visit Us',       lines: ['Gofa Camp & Gurdshola', 'Addis Ababa, Ethiopia'] },
+  { icon: Phone,  title: 'Call Us',        lines: ['0901 236 509', '0957 117 787', '0910 628 159'] },
+  { icon: Mail,   title: 'Email Us',       lines: ['info@craftpacksolution.com'] },
+  { icon: Clock,  title: 'Business Hours', lines: ['Mon–Sat: 8:00 AM – 6:00 PM EAT'] },
 ];
 
 export default function ContactSection() {
@@ -104,9 +104,9 @@ export default function ContactSection() {
           <div className="rounded-2xl overflow-hidden border border-white/5 bg-dark-800/60 h-48 flex items-center justify-center mt-8">
             <div className="text-center space-y-2">
               <MapPin className="w-8 h-8 text-brand-400 mx-auto" />
-              <p className="text-sm text-dark-400">Bole Sub-city, Addis Ababa</p>
+              <p className="text-sm text-dark-400">Gofa Camp & Gurdshola, Addis Ababa</p>
               <a
-                href="https://maps.google.com/?q=Bole+Addis+Ababa+Ethiopia"
+                href="https://maps.google.com/?q=Gofa+Camp+Addis+Ababa+Ethiopia"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xs text-brand-400 hover:text-brand-300 underline"

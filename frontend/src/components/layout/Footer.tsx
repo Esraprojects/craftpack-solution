@@ -103,11 +103,15 @@ export default function Footer() {
             <div className="space-y-3">
               <div className="flex items-start gap-3 text-sm text-dark-400">
                 <MapPin className="w-4 h-4 text-brand-400 mt-0.5 flex-shrink-0" />
-                <span>Bole Sub-city, Addis Ababa, Ethiopia</span>
+                <span>Gofa Camp &amp; Gurdshola, Addis Ababa, Ethiopia</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-dark-400">
-                <Phone className="w-4 h-4 text-brand-400 flex-shrink-0" />
-                <a href="tel:+251911000000" className="hover:text-white transition-colors">+251 911 000 000</a>
+              <div className="flex items-start gap-3 text-sm text-dark-400">
+                <Phone className="w-4 h-4 text-brand-400 flex-shrink-0 mt-0.5" />
+                <div className="flex flex-col gap-0.5">
+                  <a href="tel:+251901236509" className="hover:text-white transition-colors">0901 236 509</a>
+                  <a href="tel:+251957117787" className="hover:text-white transition-colors">0957 117 787</a>
+                  <a href="tel:+251910628159" className="hover:text-white transition-colors">0910 628 159</a>
+                </div>
               </div>
               <div className="flex items-center gap-3 text-sm text-dark-400">
                 <Mail className="w-4 h-4 text-brand-400 flex-shrink-0" />

@@ -194,9 +194,9 @@ async function main() {
   // System Settings
   const settings = [
     { key: 'company_name',    value: 'Craftpack Solution',             category: 'general' },
-    { key: 'company_address', value: 'Bole Sub-city, Addis Ababa, Ethiopia', category: 'general' },
-    { key: 'company_phone',   value: '+251 911 000 000',               category: 'general' },
-    { key: 'company_email',   value: 'info@craftpacksolution.com',     category: 'general' },
+    { key: 'company_address', value: 'Gofa Camp & Gurdshola, Addis Ababa, Ethiopia', category: 'general' },
+    { key: 'company_phone',   value: '0901236509 / 0957117787 / 0910628159',         category: 'general' },
+    { key: 'company_email',   value: 'info@craftpacksolution.com',                   category: 'general' },
     { key: 'currency',        value: 'ETB',                            category: 'general' },
     { key: 'tax_rate',        value: '15',                             category: 'general' },
     { key: 'order_prefix',    value: 'CP',                             category: 'general' },
