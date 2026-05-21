@@ -1,0 +1,193 @@
+'use client';
+
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import {
+  Package, MapPin, Phone, Mail, ExternalLink,
+  Facebook, Instagram, Linkedin, Twitter, Youtube,
+  ArrowRight
+} from 'lucide-react';
+
+const footerLinks = {
+  products: [
+    { label: 'Paper Bags',       href: '/products?category=paper_bags' },
+    { label: 'Shopping Bags',    href: '/products?category=shopping_bags' },
+    { label: 'Luxury Packaging', href: '/products?category=luxury_bags' },
+    { label: 'Food Packaging',   href: '/products?category=food_packaging' },
+    { label: 'Eco-Friendly',     href: '/products?category=eco_friendly' },
+    { label: 'Custom Printed',   href: '/products?category=custom_printed' },
+  ],
+  company: [
+    { label: 'About Us',       href: '/about' },
+    { label: 'Portfolio',      href: '/portfolio' },
+    { label: 'Industries',     href: '/industries' },
+    { label: 'Sustainability', href: '/sustainability' },
+    { label: 'Blog',           href: '/blog' },
+    { label: 'Careers',        href: '/careers' },
+  ],
+  support: [
+    { label: 'FAQ',           href: '/faq' },
+    { label: 'Contact Us',    href: '/contact' },
+    { label: 'Get a Quote',   href: '/quote' },
+    { label: 'Custom Orders', href: '/custom-order' },
+    { label: 'Bulk Orders',   href: '/bulk-order' },
+    { label: 'Track Order',   href: '/dashboard/orders' },
+  ],
+  legal: [
+    { label: 'Privacy Policy',   href: '/privacy' },
+    { label: 'Terms of Service', href: '/terms' },
+    { label: 'Cookie Policy',    href: '/cookies' },
+    { label: 'Refund Policy',    href: '/refund-policy' },
+  ],
+};
+
+const socials = [
+  { icon: Facebook,  href: '#', label: 'Facebook' },
+  { icon: Instagram, href: '#', label: 'Instagram' },
+  { icon: Linkedin,  href: '#', label: 'LinkedIn' },
+  { icon: Twitter,   href: '#', label: 'Twitter/X' },
+  { icon: Youtube,   href: '#', label: 'YouTube' },
+];
+
+const certifications = [
+  { name: 'ISO 9001:2015',  desc: 'Quality Management' },
+  { name: 'FSC Certified',  desc: 'Responsible Forestry' },
+  { name: 'ISO 14001',      desc: 'Environmental Mgmt' },
+];
+
+export default function Footer() {
+  return (
+    <footer className="relative border-t border-white/5 bg-dark-950">
+      {/* CTA Banner */}
+      <div className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/30 via-brand-800/20 to-gold-900/20" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+            <div>
+              <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-2">
+                Ready to elevate your brand?
+              </h2>
+              <p className="text-dark-300 text-lg">
+                Get a custom quote for your packaging needs in 24 hours.
+              </p>
+            </div>
+            <div className="flex gap-3 flex-shrink-0">
+              <Link href="/quote"   className="btn-gold">Request Quote <ArrowRight className="w-4 h-4" /></Link>
+              <Link href="/contact" className="btn-secondary">Contact Us</Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10">
+
+          {/* Brand column */}
+          <div className="lg:col-span-2 space-y-6">
+            <Link href="/" className="flex items-center gap-3 group w-fit">
+              <div className="w-10 h-10 bg-gradient-to-br from-brand-400 to-brand-600 rounded-xl flex items-center justify-center shadow-brand">
+                <Package className="w-5 h-5 text-white" strokeWidth={2.5} />
+              </div>
+              <div>
+                <div className="font-display font-bold text-white text-lg leading-none">Craftpack</div>
+                <div className="text-brand-400 text-xs font-medium tracking-widest uppercase leading-none mt-0.5">Solution</div>
+              </div>
+            </Link>
+
+            <p className="text-dark-400 text-sm leading-relaxed max-w-xs">
+              Ethiopia's premier paper bag and packaging manufacturer. We craft premium, eco-conscious packaging solutions for enterprises, retailers, and hospitality businesses.
+            </p>
+
+            {/* Contact info */}
+            <div className="space-y-3">
+              <div className="flex items-start gap-3 text-sm text-dark-400">
+                <MapPin className="w-4 h-4 text-brand-400 mt-0.5 flex-shrink-0" />
+                <span>Bole Sub-city, Addis Ababa, Ethiopia</span>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-dark-400">
+                <Phone className="w-4 h-4 text-brand-400 flex-shrink-0" />
+                <a href="tel:+251911000000" className="hover:text-white transition-colors">+251 911 000 000</a>
+              </div>
+              <div className="flex items-center gap-3 text-sm text-dark-400">
+                <Mail className="w-4 h-4 text-brand-400 flex-shrink-0" />
+                <a href="mailto:info@craftpacksolution.com" className="hover:text-white transition-colors">info@craftpacksolution.com</a>
+              </div>
+            </div>
+
+            {/* Socials */}
+            <div className="flex gap-2">
+              {socials.map(s => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="w-9 h-9 rounded-lg bg-white/5 hover:bg-brand-600/20 hover:text-brand-400 text-dark-400 flex items-center justify-center transition-all duration-200"
+                >
+                  <s.icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Links */}
+          {([
+            { title: 'Products',   links: footerLinks.products },
+            { title: 'Company',    links: footerLinks.company },
+            { title: 'Support',    links: footerLinks.support },
+          ] as const).map(col => (
+            <div key={col.title} className="space-y-4">
+              <h3 className="text-sm font-semibold text-white uppercase tracking-wider">{col.title}</h3>
+              <ul className="space-y-2.5">
+                {col.links.map(link => (
+                  <li key={link.href}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-dark-400 hover:text-white transition-colors duration-200 flex items-center gap-1 group"
+                    >
+                      <span>{link.label}</span>
+                      <ArrowRight className="w-3 h-3 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200" />
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Certifications */}
+        <div className="mt-12 pt-8 border-t border-white/5">
+          <div className="flex flex-wrap items-center gap-4 mb-8">
+            <span className="text-xs font-semibold text-dark-500 uppercase tracking-wider">Certified & Compliant</span>
+            {certifications.map(cert => (
+              <div
+                key={cert.name}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/3 border border-white/5"
+              >
+                <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                <span className="text-xs text-dark-300 font-medium">{cert.name}</span>
+                <span className="text-xs text-dark-500">·</span>
+                <span className="text-xs text-dark-500">{cert.desc}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-dark-500">
+              © {new Date().getFullYear()} Craftpack Solution. All rights reserved.
+            </p>
+            <div className="flex items-center gap-4">
+              {footerLinks.legal.map(link => (
+                <Link key={link.href} href={link.href} className="text-xs text-dark-500 hover:text-dark-300 transition-colors">
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
