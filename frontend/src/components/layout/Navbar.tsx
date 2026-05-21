@@ -94,16 +94,15 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-18 py-3">
 
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-10 h-10">
-                <div className="absolute inset-0 bg-gradient-to-br from-brand-500 to-brand-700 rounded-xl rotate-6 group-hover:rotate-12 transition-transform duration-300" />
-                <div className="relative w-10 h-10 bg-gradient-to-br from-brand-400 to-brand-600 rounded-xl flex items-center justify-center shadow-brand">
-                  <Package className="w-5 h-5 text-white" strokeWidth={2.5} />
-                </div>
-              </div>
-              <div>
-                <div className="font-display font-bold text-white text-lg leading-none">Craftpack</div>
-                <div className="text-brand-400 text-xs font-medium tracking-widest uppercase leading-none mt-0.5">Solution</div>
+            <Link href="/" className="flex items-center gap-2 group">
+              <img
+                src="/logo.png"
+                alt="Craftpack Solution"
+                className="h-12 w-12 object-contain rounded-xl group-hover:scale-105 transition-transform duration-300"
+              />
+              <div className="hidden sm:block">
+                <div className="font-display font-bold text-zinc-900 dark:text-white text-lg leading-none">Craftpack</div>
+                <div className="text-zinc-500 dark:text-zinc-400 text-xs font-medium tracking-widest uppercase leading-none mt-0.5">Solution</div>
               </div>
             </Link>
 

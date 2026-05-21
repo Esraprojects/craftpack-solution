@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
   Package, MapPin, Phone, Mail, ExternalLink,
-  Facebook, Instagram, Linkedin, Twitter, Youtube,
+  Facebook, Instagram, Send,
   ArrowRight
 } from 'lucide-react';
 
@@ -41,12 +41,30 @@ const footerLinks = {
   ],
 };
 
+/* Custom TikTok SVG icon */
+function TikTokIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.19 8.19 0 004.79 1.53V6.77a4.85 4.85 0 01-1.02-.08z"/>
+    </svg>
+  );
+}
+
+/* Custom Jiji icon */
+function JijiIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/>
+    </svg>
+  );
+}
+
 const socials = [
-  { icon: Facebook,  href: '#', label: 'Facebook' },
-  { icon: Instagram, href: '#', label: 'Instagram' },
-  { icon: Linkedin,  href: '#', label: 'LinkedIn' },
-  { icon: Twitter,   href: '#', label: 'Twitter/X' },
-  { icon: Youtube,   href: '#', label: 'YouTube' },
+  { icon: Facebook,  href: 'https://www.facebook.com/craftpacksolution',  label: 'Facebook' },
+  { icon: Instagram, href: 'https://www.instagram.com/craftpack_solution', label: 'Instagram' },
+  { icon: TikTokIcon, href: 'https://www.tiktok.com/@craftpacksolution',   label: 'TikTok' },
+  { icon: Send,      href: 'https://t.me/craftpacksolution',               label: 'Telegram' },
+  { icon: JijiIcon,  href: 'https://jiji.com.et/shop/craftpacksolution',   label: 'Jiji Ethiopia' },
 ];
 
 const certifications = [
@@ -57,7 +75,7 @@ const certifications = [
 
 export default function Footer() {
   return (
-    <footer className="relative border-t border-white/5 bg-dark-950">
+    <footer className="relative border-t border-zinc-100 dark:border-white/5 bg-zinc-50 dark:bg-zinc-950">
       {/* CTA Banner */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-brand-900/30 via-brand-800/20 to-gold-900/20" />
