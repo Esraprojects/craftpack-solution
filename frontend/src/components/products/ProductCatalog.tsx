@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { Search, Filter, Grid3X3, List, SlidersHorizontal, X, Star, Leaf, ShoppingCart, ArrowRight, ChevronDown } from 'lucide-react';
+import { Search, Filter, Grid3X3, List, SlidersHorizontal, X, Star, Leaf, ShoppingCart, ArrowRight, ChevronDown, Package } from 'lucide-react';
 import { cn, formatCurrency } from '@/lib/utils';
 
 const CATEGORIES = [

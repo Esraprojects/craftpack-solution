@@ -182,7 +182,7 @@ function SceneContent() {
       {/* Post-processing */}
       <EffectComposer>
         <Bloom luminanceThreshold={0.6} luminanceSmoothing={0.9} height={300} intensity={0.4} />
-        <ChromaticAberration blendFunction={BlendFunction.NORMAL} offset={new THREE.Vector2(0.001, 0.001)} />
+        <ChromaticAberration blendFunction={BlendFunction.NORMAL} offset={new THREE.Vector2(0.001, 0.001)} radialModulation={false} modulationOffset={0} />
         <Vignette eskil={false} offset={0.1} darkness={0.8} />
       </EffectComposer>
     </>
