@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm } from 'react-hook-form';
@@ -11,7 +11,7 @@ import { Eye, EyeOff, Package, ArrowRight, LogIn } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { authApi } from '@/lib/api';
 import { useAuthStore } from '@/store/useAuthStore';
-import type { User, AuthTokens } from '@/types';
+import type { User } from '@/types';
 
 const schema = z.object({
   email:    z.string().email('Enter a valid email'),
@@ -20,7 +20,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export default function LoginPage() {
+function LoginForm() {
   const router      = useRouter();
   const params      = useSearchParams();
   const { setAuth } = useAuthStore();
@@ -147,5 +147,13 @@ export default function LoginPage() {
         </div>
       </motion.div>
     </div>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-dark-950" />}>
+      <LoginForm />
+    </Suspense>
   );
 }
