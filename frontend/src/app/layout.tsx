@@ -70,7 +70,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${sora.variable}`} suppressHydrationWarning>
-      <body className="bg-dark-950 text-white antialiased">
+      <body className="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white antialiased transition-colors duration-300">
         <Providers>
           {children}
           <Toaster

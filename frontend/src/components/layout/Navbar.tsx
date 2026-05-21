@@ -7,12 +7,32 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   Menu, X, ShoppingCart, User, ChevronDown,
   Package, Star, Globe, Leaf, Phone, FileText,
-  BarChart2, Settings, LogOut, Bell, Search
+  BarChart2, Settings, LogOut, Bell, Search, Sun, Moon
 } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/useAuthStore';
 import { useCartStore } from '@/store/useCartStore';
 import { getInitials } from '@/lib/utils';
+
+function ThemeToggle() {
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return <div className="w-9 h-9" />;
+  const isDark = resolvedTheme === 'dark';
+  return (
+    <button
+      onClick={() => setTheme(isDark ? 'light' : 'dark')}
+      aria-label="Toggle theme"
+      className="w-9 h-9 rounded-xl flex items-center justify-center border transition-all duration-200
+                 bg-white border-zinc-200 text-zinc-600 hover:bg-zinc-50 hover:border-zinc-300
+                 dark:bg-white/5 dark:border-white/10 dark:text-zinc-300 dark:hover:bg-white/10"
+    >
+      {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+    </button>
+  );
+}
 
 const navItems = [
   { label: 'Products', href: '/products', icon: Package,
@@ -66,7 +86,7 @@ export default function Navbar() {
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           isScrolled
-            ? 'bg-dark-950/90 backdrop-blur-xl border-b border-white/5 shadow-2xl'
+            ? 'bg-white/90 backdrop-blur-xl border-b border-zinc-200 shadow-sm dark:bg-zinc-950/90 dark:border-white/5 dark:shadow-2xl'
             : 'bg-transparent'
         )}
       >
@@ -238,6 +258,7 @@ export default function Navbar() {
                   <Link href="/auth/register" className="btn-primary text-xs px-4 py-2.5">Get Started</Link>
                 </div>
               )}
+              <ThemeToggle />
             </div>
 
             {/* Mobile Menu Toggle */}
