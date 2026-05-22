@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { ArrowRight, Shield, Leaf, Zap, Star } from 'lucide-react';
+import { ArrowRight, Shield, Leaf, Zap, Star, TrendingUp } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { useEffect, useState } from 'react';
 
@@ -20,18 +20,18 @@ const stats = [
 ];
 
 const badges = [
-  { icon: Shield, label: 'ISO 9001 Certified' },
-  { icon: Leaf,   label: 'FSC Certified' },
-  { icon: Zap,    label: '24hr Quote Turnaround' },
+  { icon: Shield, label: 'ISO 9001 Certified',     color: 'brand' },
+  { icon: Leaf,   label: 'FSC Certified',           color: 'brand' },
+  { icon: Zap,    label: '24hr Quote Turnaround',   color: 'accent' },
 ];
 
 const container = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
+  hidden:   {},
+  visible:  { transition: { staggerChildren: 0.12 } },
 };
 const item = {
-  hidden:   { opacity: 0, y: 28 },
-  visible:  { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } },
+  hidden:   { opacity: 0, y: 30 },
+  visible:  { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 };
 
 export default function HeroSection() {
@@ -48,41 +48,89 @@ export default function HeroSection() {
         {mounted && <FloatingScene isDark={isDark} />}
       </div>
 
-      {/* ── Gradient overlay for readability ── */}
+      {/* ── Dark overlay for readability ── */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background: isDark
-            ? 'radial-gradient(ellipse 70% 80% at 38% 50%, rgba(17,17,16,0.62) 0%, rgba(17,17,16,0.35) 60%, transparent 100%)'
-            : 'radial-gradient(ellipse 70% 80% at 38% 50%, rgba(250,248,244,0.80) 0%, rgba(250,248,244,0.50) 60%, transparent 100%)',
+            ? 'radial-gradient(ellipse 80% 90% at 35% 50%, rgba(2,6,23,0.75) 0%, rgba(2,6,23,0.45) 60%, transparent 100%)'
+            : 'radial-gradient(ellipse 80% 90% at 35% 50%, rgba(250,248,244,0.85) 0%, rgba(250,248,244,0.55) 65%, transparent 100%)',
         }}
       />
-      {/* Edge vignette */}
       <div
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background: isDark
-            ? 'linear-gradient(to right, rgba(17,17,16,0.65) 0%, transparent 55%, rgba(17,17,16,0.18) 100%)'
-            : 'linear-gradient(to right, rgba(250,248,244,0.85) 0%, transparent 55%, rgba(250,248,244,0.25) 100%)',
+            ? 'linear-gradient(to right, rgba(2,6,23,0.80) 0%, rgba(2,6,23,0.30) 50%, transparent 100%)'
+            : 'linear-gradient(to right, rgba(250,248,244,0.90) 0%, rgba(250,248,244,0.40) 55%, transparent 100%)',
+        }}
+      />
+      {/* Bottom gradient blend into page */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 z-[1] pointer-events-none"
+        style={{
+          background: isDark
+            ? 'linear-gradient(to top, #020617, transparent)'
+            : 'linear-gradient(to top, #faf8f4, transparent)',
         }}
       />
 
+      {/* ── Ambient glow blobs ── */}
+      {isDark && (
+        <>
+          <div className="absolute top-1/3 left-1/4 w-96 h-96 z-[1] pointer-events-none opacity-[0.12]"
+            style={{ background: 'radial-gradient(circle, #10b981, transparent 70%)', filter: 'blur(60px)' }} />
+          <div className="absolute top-1/2 left-8 w-64 h-64 z-[1] pointer-events-none opacity-[0.08]"
+            style={{ background: 'radial-gradient(circle, #22d3ee, transparent 70%)', filter: 'blur(50px)' }} />
+        </>
+      )}
+
       {/* ── Hero content ── */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 pb-24 w-full">
         <motion.div
           variants={container}
           initial="hidden"
           animate="visible"
-          className="max-w-2xl space-y-8"
+          className="max-w-[600px] space-y-7"
         >
+          {/* Eyebrow pill */}
+          <motion.div variants={item}>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest
+                            border border-brand-500/30 bg-brand-500/10 text-brand-400 backdrop-blur-sm">
+              <TrendingUp className="w-3.5 h-3.5" />
+              Ethiopia&apos;s #1 Packaging Manufacturer
+            </div>
+          </motion.div>
+
+          {/* Headline */}
+          <motion.div variants={item}>
+            <h1 className="font-display font-bold leading-[1.04] tracking-tight"
+                style={{ fontSize: 'clamp(3rem, 6.5vw, 5.2rem)' }}>
+              <span className={isDark ? 'text-white' : 'text-zinc-900'}>Premium</span>
+              <span className="block gradient-text-hero">Paper Bags</span>
+              <span className={isDark ? 'text-white/90' : 'text-zinc-800'}>&amp; Packaging</span>
+            </h1>
+          </motion.div>
+
+          {/* Description */}
+          <motion.p variants={item}
+            className="text-lg leading-relaxed max-w-lg"
+            style={{ color: isDark ? 'rgba(203,213,225,0.9)' : '#475569' }}>
+            Crafting world-class, eco-conscious packaging for Ethiopia&apos;s leading hotels, cafes,
+            supermarkets, and enterprises. Custom branding to bulk manufacturing — delivered at scale.
+          </motion.p>
+
           {/* Badges */}
           <motion.div variants={item} className="flex flex-wrap gap-2">
             {badges.map(b => (
               <div
                 key={b.label}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium
-                           bg-white/70 border border-brand-200/60 text-brand-700 backdrop-blur-sm
-                           dark:bg-brand-950/40 dark:border-brand-700/30 dark:text-brand-300"
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium backdrop-blur-sm
+                  ${b.color === 'accent'
+                    ? 'bg-accent-500/10 border border-accent-500/25 text-accent-300 dark:text-accent-300'
+                    : 'bg-brand-500/10 border border-brand-500/25 text-brand-300 dark:text-brand-300'
+                  }
+                  text-brand-700 dark:text-brand-300 border-brand-200/60 dark:border-brand-700/30`}
               >
                 <b.icon className="w-3 h-3" />
                 {b.label}
@@ -90,31 +138,8 @@ export default function HeroSection() {
             ))}
           </motion.div>
 
-          {/* Eyebrow */}
-          <motion.div variants={item}>
-            <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4
-                            text-brand-600 dark:text-brand-400">
-              <div className="w-8 h-px bg-brand-500 dark:bg-brand-500" />
-              Ethiopia's #1 Packaging Manufacturer
-            </div>
-
-            <h1 className="font-display font-bold leading-[1.05] tracking-tight text-zinc-900 dark:text-white"
-                style={{ fontSize: 'clamp(2.8rem, 6vw, 5rem)' }}>
-              Premium
-              <span className="block gradient-text">Paper Bags</span>
-              <span className="block">&amp; Packaging</span>
-            </h1>
-          </motion.div>
-
-          {/* Description */}
-          <motion.p variants={item}
-            className="text-lg leading-relaxed text-zinc-600 dark:text-zinc-300 max-w-xl">
-            Crafting world-class, eco-conscious packaging for Ethiopia's leading hotels, cafes,
-            supermarkets, and enterprises. Custom branding to bulk manufacturing — delivered at scale.
-          </motion.p>
-
           {/* CTAs */}
-          <motion.div variants={item} className="flex flex-wrap gap-4">
+          <motion.div variants={item} className="flex flex-wrap gap-4 pt-1">
             <Link href="/quote" className="btn-primary text-base px-8 py-4 group">
               Get Free Quote
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -124,38 +149,45 @@ export default function HeroSection() {
             </Link>
           </motion.div>
 
-          {/* Stats */}
+          {/* Stats row */}
           <motion.div
             variants={item}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-6
-                       border-t border-zinc-200 dark:border-white/5"
+            className="grid grid-cols-2 sm:grid-cols-4 gap-5 pt-6 border-t"
+            style={{ borderColor: isDark ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.08)' }}
           >
             {stats.map(stat => (
               <div key={stat.label}>
-                <div className="font-display font-bold text-2xl text-zinc-900 dark:text-white">{stat.value}</div>
-                <div className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">{stat.label}</div>
+                <div className="font-display font-bold text-2xl"
+                  style={{ color: isDark ? '#fff' : '#0f172a' }}>{stat.value}</div>
+                <div className="text-xs mt-0.5"
+                  style={{ color: isDark ? 'rgba(148,163,184,0.8)' : '#64748b' }}>{stat.label}</div>
               </div>
             ))}
           </motion.div>
 
           {/* Social proof */}
-          <motion.div variants={item} className="flex items-center gap-4">
+          <motion.div variants={item} className="flex items-center gap-4 pt-1">
             <div className="flex -space-x-2">
-              {['H','S','R','C','M'].map((letter, i) => (
+              {['#10b981','#22d3ee','#f59e0b','#8b5cf6','#ec4899'].map((bg, i) => (
                 <div
                   key={i}
-                  className="w-8 h-8 rounded-full border-2 border-white dark:border-zinc-950 flex items-center justify-center text-xs font-bold text-white"
-                  style={{ background: `hsl(${[0,45,120,200,270][i]}, 0%, ${isDark ? 55 : 40}%)` }}
+                  className="w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-bold text-white"
+                  style={{
+                    background: bg,
+                    borderColor: isDark ? '#020617' : '#faf8f4',
+                  }}
                 >
-                  {letter}
+                  {['H','S','R','C','M'][i]}
                 </div>
               ))}
             </div>
             <div>
-              <div className="flex text-zinc-400">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-3 h-3 fill-current" />)}
+              <div className="flex text-amber-400">
+                {[...Array(5)].map((_, i) => <Star key={i} className="w-3.5 h-3.5 fill-current" />)}
               </div>
-              <p className="text-xs text-zinc-500 dark:text-zinc-400">Trusted by 500+ businesses</p>
+              <p className="text-xs mt-0.5" style={{ color: isDark ? 'rgba(148,163,184,0.8)' : '#64748b' }}>
+                Trusted by 500+ businesses across Ethiopia
+              </p>
             </div>
           </motion.div>
         </motion.div>
@@ -166,14 +198,18 @@ export default function HeroSection() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
       >
-        <span className="text-xs uppercase tracking-widest text-zinc-400 dark:text-zinc-500">Scroll</span>
-        <div className="w-5 h-8 rounded-full border border-zinc-300 dark:border-white/20 flex items-start justify-center p-1">
+        <span className="text-xs uppercase tracking-widest" style={{ color: isDark ? 'rgba(100,116,139,0.8)' : '#94a3b8' }}>
+          Scroll
+        </span>
+        <div className="w-5 h-8 rounded-full border flex items-start justify-center p-1"
+          style={{ borderColor: isDark ? 'rgba(255,255,255,0.15)' : 'rgba(0,0,0,0.2)' }}>
           <motion.div
             animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-            className="w-1 h-2 rounded-full bg-zinc-700 dark:bg-white"
+            transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+            className="w-1 h-2 rounded-full"
+            style={{ background: isDark ? 'rgba(255,255,255,0.6)' : '#475569' }}
           />
         </div>
       </motion.div>

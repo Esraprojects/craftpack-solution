@@ -7,8 +7,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard, Package, ShoppingCart, Users, BarChart2,
   Archive, FileText, Settings, ChevronDown, ChevronRight,
-  MessageSquare, Bell, Activity, Database, Tag, Menu, X,
-  LogOut, Globe, Shield,
+  MessageSquare, Bell, Activity, Tag, Menu, X,
+  LogOut, Globe, Shield, DollarSign, TrendingUp,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/useAuthStore';
@@ -84,6 +84,21 @@ const navItems = [
     title:    'Settings',
     href:     '/admin/settings',
     icon:     Settings,
+  },
+  {
+    title:    'Metrics',
+    href:     '/admin/metrics',
+    icon:     TrendingUp,
+  },
+  {
+    title:    'Finance',
+    href:     '/admin/finance',
+    icon:     DollarSign,
+  },
+  {
+    title:    'Reminders',
+    href:     '/admin/reminders',
+    icon:     Bell,
   },
   {
     title:    'Access Control',
