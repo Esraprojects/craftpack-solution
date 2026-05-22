@@ -86,8 +86,8 @@ export default function Navbar() {
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           isScrolled
-            ? 'bg-white/90 backdrop-blur-xl border-b border-zinc-200 shadow-sm dark:bg-zinc-950/90 dark:border-white/5 dark:shadow-2xl'
-            : 'bg-transparent'
+            ? 'bg-white/92 backdrop-blur-xl border-b border-zinc-200/80 shadow-sm dark:bg-dark-950/92 dark:border-white/5 dark:shadow-2xl'
+            : 'bg-gradient-to-b from-black/30 to-transparent dark:from-black/40'
         )}
       >
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -118,7 +118,7 @@ export default function Navbar() {
                         'flex items-center gap-1 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
                         isActive(item.href)
                           ? 'text-white bg-white/10'
-                          : 'text-dark-300 hover:text-white hover:bg-white/5'
+                          : 'text-white/90 hover:text-white hover:bg-white/10'
                       )}
                     >
                       {item.label}
@@ -131,7 +131,7 @@ export default function Navbar() {
                         'px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200',
                         isActive(item.href)
                           ? 'text-white bg-white/10'
-                          : 'text-dark-300 hover:text-white hover:bg-white/5'
+                          : 'text-white/90 hover:text-white hover:bg-white/10'
                       )}
                     >
                       {item.label}
@@ -183,7 +183,7 @@ export default function Navbar() {
               {/* Cart */}
               <button
                 onClick={toggleCart}
-                className="relative p-2.5 rounded-xl hover:bg-white/5 text-dark-300 hover:text-white transition-colors"
+                className="relative p-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition-colors"
                 aria-label="Cart"
               >
                 <ShoppingCart className="w-5 h-5" />
@@ -208,7 +208,7 @@ export default function Navbar() {
                     <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-brand-700 flex items-center justify-center text-white text-xs font-bold">
                       {getInitials(user.name)}
                     </div>
-                    <span className="text-sm text-dark-200">{user.name.split(' ')[0]}</span>
+                    <span className="text-sm text-white/90">{user.name.split(' ')[0]}</span>
                     <ChevronDown className="w-3.5 h-3.5 text-dark-400" />
                   </button>
 
@@ -262,7 +262,7 @@ export default function Navbar() {
 
             {/* Mobile Menu Toggle */}
             <div className="flex lg:hidden items-center gap-2">
-              <button onClick={toggleCart} className="relative p-2.5 rounded-xl hover:bg-white/5 text-dark-300 hover:text-white transition-colors">
+              <button onClick={toggleCart} className="relative p-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition-colors">
                 <ShoppingCart className="w-5 h-5" />
                 {cartCount > 0 && (
                   <span className="absolute -top-1 -right-1 w-4 h-4 bg-brand-500 rounded-full text-white text-xs font-bold flex items-center justify-center">

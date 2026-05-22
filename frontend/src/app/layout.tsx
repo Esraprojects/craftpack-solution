@@ -61,7 +61,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: '#0ea5e9',
+  themeColor: '#228b55',
   width:      'device-width',
   initialScale: 1,
   maximumScale: 5,
@@ -70,7 +70,7 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${sora.variable}`} suppressHydrationWarning>
-      <body className="bg-white dark:bg-zinc-950 text-zinc-900 dark:text-white antialiased transition-colors duration-300">
+      <body className="bg-[#faf8f4] dark:bg-[#111110] text-zinc-900 dark:text-white antialiased transition-colors duration-300">
         <Providers>
           {children}
           <Toaster
@@ -78,7 +78,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             toastOptions={{
               duration: 4000,
               style: {
-                background: 'hsl(220, 20%, 8%)',
+                background: 'hsl(25, 8%, 9%)',
                 color:      '#fff',
                 border:     '1px solid rgba(255,255,255,0.08)',
                 borderRadius: '12px',

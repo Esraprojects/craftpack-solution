@@ -77,21 +77,21 @@ export default function Footer() {
   return (
     <footer className="relative border-t border-zinc-100 dark:border-white/5 bg-zinc-50 dark:bg-zinc-950">
       {/* CTA Banner */}
-      <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-900/30 via-brand-800/20 to-gold-900/20" />
+      <div className="relative overflow-hidden bg-brand-900 dark:bg-dark-950">
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-950/60 via-brand-900/40 to-brand-800/20" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-white mb-2">
                 Ready to elevate your brand?
               </h2>
-              <p className="text-dark-300 text-lg">
+              <p className="text-brand-200 text-lg">
                 Get a custom quote for your packaging needs in 24 hours.
               </p>
             </div>
             <div className="flex gap-3 flex-shrink-0">
               <Link href="/quote"   className="btn-gold">Request Quote <ArrowRight className="w-4 h-4" /></Link>
-              <Link href="/contact" className="btn-secondary">Contact Us</Link>
+              <Link href="/contact" className="btn-secondary dark:text-white">Contact Us</Link>
             </div>
           </div>
         </div>

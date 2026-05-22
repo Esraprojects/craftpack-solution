@@ -53,8 +53,8 @@ export default function HeroSection() {
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background: isDark
-            ? 'radial-gradient(ellipse 70% 80% at 40% 50%, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 60%, transparent 100%)'
-            : 'radial-gradient(ellipse 70% 80% at 40% 50%, rgba(255,255,255,0.75) 0%, rgba(255,255,255,0.45) 60%, transparent 100%)',
+            ? 'radial-gradient(ellipse 70% 80% at 38% 50%, rgba(17,17,16,0.62) 0%, rgba(17,17,16,0.35) 60%, transparent 100%)'
+            : 'radial-gradient(ellipse 70% 80% at 38% 50%, rgba(250,248,244,0.80) 0%, rgba(250,248,244,0.50) 60%, transparent 100%)',
         }}
       />
       {/* Edge vignette */}
@@ -62,8 +62,8 @@ export default function HeroSection() {
         className="absolute inset-0 z-[1] pointer-events-none"
         style={{
           background: isDark
-            ? 'linear-gradient(to right, rgba(0,0,0,0.6) 0%, transparent 50%, rgba(0,0,0,0.2) 100%)'
-            : 'linear-gradient(to right, rgba(255,255,255,0.8) 0%, transparent 50%, rgba(255,255,255,0.3) 100%)',
+            ? 'linear-gradient(to right, rgba(17,17,16,0.65) 0%, transparent 55%, rgba(17,17,16,0.18) 100%)'
+            : 'linear-gradient(to right, rgba(250,248,244,0.85) 0%, transparent 55%, rgba(250,248,244,0.25) 100%)',
         }}
       />
 
@@ -81,8 +81,8 @@ export default function HeroSection() {
               <div
                 key={b.label}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium
-                           bg-white/60 border border-zinc-200 text-zinc-600 backdrop-blur-sm
-                           dark:bg-white/5 dark:border-white/10 dark:text-zinc-300"
+                           bg-white/70 border border-brand-200/60 text-brand-700 backdrop-blur-sm
+                           dark:bg-brand-950/40 dark:border-brand-700/30 dark:text-brand-300"
               >
                 <b.icon className="w-3 h-3" />
                 {b.label}
@@ -93,8 +93,8 @@ export default function HeroSection() {
           {/* Eyebrow */}
           <motion.div variants={item}>
             <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest mb-4
-                            text-zinc-500 dark:text-zinc-400">
-              <div className="w-8 h-px bg-zinc-400 dark:bg-zinc-500" />
+                            text-brand-600 dark:text-brand-400">
+              <div className="w-8 h-px bg-brand-500 dark:bg-brand-500" />
               Ethiopia's #1 Packaging Manufacturer
             </div>
 

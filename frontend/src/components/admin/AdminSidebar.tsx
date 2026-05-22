@@ -8,7 +8,7 @@ import {
   LayoutDashboard, Package, ShoppingCart, Users, BarChart2,
   Archive, FileText, Settings, ChevronDown, ChevronRight,
   MessageSquare, Bell, Activity, Database, Tag, Menu, X,
-  LogOut, Star, Globe
+  LogOut, Globe, Shield,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useAuthStore } from '@/store/useAuthStore';
@@ -84,6 +84,11 @@ const navItems = [
     title:    'Settings',
     href:     '/admin/settings',
     icon:     Settings,
+  },
+  {
+    title:    'Access Control',
+    href:     '/admin/access',
+    icon:     Shield,
   },
 ];
 
