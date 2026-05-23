@@ -33,16 +33,35 @@ function LoginForm() {
     resolver: zodResolver(schema),
   });
 
+  const DEMO_USERS: Record<string, { password: string; user: User }> = {
+    'admin@craftpacksolution.com': {
+      password: 'Admin@Craftpack2024!',
+      user: { id: 'usr-001', name: 'Craftpack Admin', email: 'admin@craftpacksolution.com', role: 'super_admin', isVerified: true, createdAt: '2024-01-01', updatedAt: '2024-01-01' },
+    },
+    'manager@craftpacksolution.com': {
+      password: 'Manager@2024!',
+      user: { id: 'usr-002', name: 'Store Manager', email: 'manager@craftpacksolution.com', role: 'manager', isVerified: true, createdAt: '2024-01-01', updatedAt: '2024-01-01' },
+    },
+  };
+
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
+      // Demo / offline login
+      const demo = DEMO_USERS[data.email.toLowerCase()];
+      if (demo && demo.password === data.password) {
+        setAuth(demo.user, { accessToken: 'demo-token', refreshToken: 'demo-refresh', expiresIn: 86400 });
+        toast.success(`Welcome back, ${demo.user.name.split(' ')[0]}!`);
+        const dest = ['admin', 'super_admin', 'manager'].includes(demo.user.role) ? '/admin' : redirect;
+        router.push(dest);
+        return;
+      }
+
+      // Real backend (fallback)
       const res = await authApi.login(data) as { data: { user: User; accessToken: string; refreshToken: string; expiresIn: number } };
       setAuth(res.data.user, { accessToken: res.data.accessToken, refreshToken: res.data.refreshToken, expiresIn: res.data.expiresIn });
       toast.success(`Welcome back, ${res.data.user.name.split(' ')[0]}!`);
-
-      const dest = ['admin', 'super_admin', 'manager'].includes(res.data.user.role)
-        ? '/admin'
-        : redirect;
+      const dest = ['admin', 'super_admin', 'manager'].includes(res.data.user.role) ? '/admin' : redirect;
       router.push(dest);
     } catch (err: unknown) {
       const error = err as { response?: { data?: { message?: string } } };
