@@ -3,33 +3,59 @@
 import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
-import { Search, Filter, Grid3X3, List, SlidersHorizontal, X, Star, Leaf, ShoppingCart, ArrowRight, ChevronDown, Package } from 'lucide-react';
-import { cn, formatCurrency } from '@/lib/utils';
+import { Search, Grid3X3, List, X, Star, Leaf, ShoppingCart, ChevronDown, Package } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 const CATEGORIES = [
-  { id: 'all',            label: 'All Products',    count: 48 },
-  { id: 'paper_bags',     label: 'Paper Bags',       count: 12 },
-  { id: 'shopping_bags',  label: 'Shopping Bags',    count: 10 },
-  { id: 'luxury_bags',    label: 'Luxury Bags',      count: 8 },
-  { id: 'food_packaging', label: 'Food Packaging',   count: 7 },
-  { id: 'eco_friendly',   label: 'Eco-Friendly',     count: 6 },
-  { id: 'gift_bags',      label: 'Gift Bags',        count: 3 },
-  { id: 'industrial',     label: 'Industrial',       count: 2 },
+  { id: 'all',            label: 'All Products',         count: 37 },
+  { id: 'kraft_bags',     label: 'Kraft Paper Bags',     count: 8  },
+  { id: 'duplex_bags',    label: 'White Duplex Bags',    count: 8  },
+  { id: 'cake_boxes',     label: 'Cake & Cookies Boxes', count: 9  },
+  { id: 'raw_materials',  label: 'Raw Materials',        count: 12 },
 ];
 
 const SAMPLE_PRODUCTS = [
-  { id: '1',  name: 'Premium Kraft Shopping Bag',        slug: 'premium-kraft-shopping-bag',       category: 'shopping_bags',  basePrice: 12.50,  rating: 4.9, reviews: 128, isEco: true,  isBestseller: true,  minOrder: 500,  color: '#c8a97e' },
-  { id: '2',  name: 'Luxury Matte Laminated Bag',        slug: 'luxury-matte-laminated-bag',       category: 'luxury_bags',    basePrice: 28.00,  rating: 5.0, reviews: 64,  isEco: false, isBestseller: false, minOrder: 200,  color: '#1e293b' },
-  { id: '3',  name: 'Eco Recycled Paper Bag',            slug: 'eco-recycled-paper-bag',           category: 'eco_friendly',   basePrice: 8.75,   rating: 4.8, reviews: 211, isEco: true,  isBestseller: true,  minOrder: 1000, color: '#4ade80' },
-  { id: '4',  name: 'Food-Grade Paper Bag',              slug: 'food-grade-paper-bag',             category: 'food_packaging', basePrice: 6.50,   rating: 4.7, reviews: 183, isEco: true,  isBestseller: false, minOrder: 2000, color: '#fbbf24' },
-  { id: '5',  name: 'Corporate Gift Box Bag',            slug: 'corporate-gift-box-bag',           category: 'gift_bags',      basePrice: 35.00,  rating: 4.9, reviews: 47,  isEco: false, isBestseller: false, minOrder: 100,  color: '#7c3aed' },
-  { id: '6',  name: 'Bulk Industrial Craft Bag',         slug: 'bulk-industrial-craft-bag',        category: 'industrial',     basePrice: 4.20,   rating: 4.6, reviews: 95,  isEco: true,  isBestseller: false, minOrder: 5000, color: '#78350f' },
-  { id: '7',  name: 'Boutique Fashion Tote',             slug: 'boutique-fashion-tote',            category: 'shopping_bags',  basePrice: 18.00,  rating: 4.9, reviews: 87,  isEco: false, isBestseller: true,  minOrder: 300,  color: '#ec4899' },
-  { id: '8',  name: 'Luxury Rigid Gift Bag',             slug: 'luxury-rigid-gift-bag',            category: 'luxury_bags',    basePrice: 45.00,  rating: 5.0, reviews: 32,  isEco: false, isBestseller: false, minOrder: 50,   color: '#d4af37' },
-  { id: '9',  name: 'Bakery Window Paper Bag',           slug: 'bakery-window-paper-bag',          category: 'food_packaging', basePrice: 5.80,   rating: 4.7, reviews: 142, isEco: true,  isBestseller: false, minOrder: 1500, color: '#f97316' },
-  { id: '10', name: 'White Gloss Laminated Bag',         slug: 'white-gloss-laminated-bag',        category: 'paper_bags',     basePrice: 15.00,  rating: 4.8, reviews: 76,  isEco: false, isBestseller: false, minOrder: 400,  color: '#e2e8f0' },
-  { id: '11', name: 'Natural Brown Kraft Bag',           slug: 'natural-brown-kraft-bag',          category: 'paper_bags',     basePrice: 9.50,   rating: 4.6, reviews: 199, isEco: true,  isBestseller: true,  minOrder: 800,  color: '#a16207' },
-  { id: '12', name: 'Premium Jewelry Gift Bag',          slug: 'premium-jewelry-gift-bag',         category: 'gift_bags',      basePrice: 52.00,  rating: 5.0, reviews: 18,  isEco: false, isBestseller: false, minOrder: 50,   color: '#c084fc' },
+  /* ── Kraft Paper Bags ── */
+  { id: 'k1',  name: 'Kraft Bag — Small (with Logo)',       slug: 'kraft-bag-small-logo',      category: 'kraft_bags',    basePrice: 39, rating: 4.9, reviews: 214, isEco: true,  isBestseller: true,  minOrder: 200, color: '#c8a97e', tag: 'With Logo'  },
+  { id: 'k2',  name: 'Kraft Bag — Medium (with Logo)',      slug: 'kraft-bag-medium-logo',     category: 'kraft_bags',    basePrice: 45, rating: 4.9, reviews: 186, isEco: true,  isBestseller: true,  minOrder: 200, color: '#b8936a', tag: 'With Logo'  },
+  { id: 'k3',  name: 'Kraft Bag — Large (with Logo)',       slug: 'kraft-bag-large-logo',      category: 'kraft_bags',    basePrice: 53, rating: 4.8, reviews: 142, isEco: true,  isBestseller: false, minOrder: 200, color: '#a07850', tag: 'With Logo'  },
+  { id: 'k4',  name: 'Kraft Bag — Extra Large (with Logo)', slug: 'kraft-bag-xl-logo',         category: 'kraft_bags',    basePrice: 60, rating: 4.8, reviews: 98,  isEco: true,  isBestseller: false, minOrder: 200, color: '#8c6438', tag: 'With Logo'  },
+  { id: 'k5',  name: 'Kraft Bag — Small (Plain)',           slug: 'kraft-bag-small-plain',     category: 'kraft_bags',    basePrice: 29, rating: 4.7, reviews: 310, isEco: true,  isBestseller: true,  minOrder: 200, color: '#d4b896', tag: 'Plain'      },
+  { id: 'k6',  name: 'Kraft Bag — Medium (Plain)',          slug: 'kraft-bag-medium-plain',    category: 'kraft_bags',    basePrice: 32, rating: 4.7, reviews: 278, isEco: true,  isBestseller: false, minOrder: 200, color: '#c8a87c', tag: 'Plain'      },
+  { id: 'k7',  name: 'Kraft Bag — Large (Plain)',           slug: 'kraft-bag-large-plain',     category: 'kraft_bags',    basePrice: 37, rating: 4.6, reviews: 201, isEco: true,  isBestseller: false, minOrder: 200, color: '#b89060', tag: 'Plain'      },
+  { id: 'k8',  name: 'Kraft Bag — Extra Large (Plain)',     slug: 'kraft-bag-xl-plain',        category: 'kraft_bags',    basePrice: 47, rating: 4.6, reviews: 134, isEco: true,  isBestseller: false, minOrder: 200, color: '#a07844', tag: 'Plain'      },
+  /* ── White Duplex Bags ── */
+  { id: 'd1',  name: 'White Duplex Bag — Small (with Logo)',       slug: 'duplex-bag-small-logo',  category: 'duplex_bags',   basePrice: 43, rating: 5.0, reviews: 167, isEco: false, isBestseller: true,  minOrder: 200, color: '#f0ece4', tag: 'With Logo'  },
+  { id: 'd2',  name: 'White Duplex Bag — Medium (with Logo)',      slug: 'duplex-bag-medium-logo', category: 'duplex_bags',   basePrice: 53, rating: 4.9, reviews: 148, isEco: false, isBestseller: true,  minOrder: 200, color: '#e8e2d8', tag: 'With Logo'  },
+  { id: 'd3',  name: 'White Duplex Bag — Large (with Logo)',       slug: 'duplex-bag-large-logo',  category: 'duplex_bags',   basePrice: 60, rating: 4.9, reviews: 112, isEco: false, isBestseller: false, minOrder: 200, color: '#e0d8cc', tag: 'With Logo'  },
+  { id: 'd4',  name: 'White Duplex Bag — Extra Large (with Logo)', slug: 'duplex-bag-xl-logo',     category: 'duplex_bags',   basePrice: 75, rating: 4.8, reviews: 76,  isEco: false, isBestseller: false, minOrder: 200, color: '#d8d0c4', tag: 'With Logo'  },
+  { id: 'd5',  name: 'White Duplex Bag — Small (Plain)',           slug: 'duplex-bag-small-plain', category: 'duplex_bags',   basePrice: 33, rating: 4.7, reviews: 189, isEco: false, isBestseller: false, minOrder: 200, color: '#f8f6f0', tag: 'Plain'      },
+  { id: 'd6',  name: 'White Duplex Bag — Medium (Plain)',          slug: 'duplex-bag-medium-plain',category: 'duplex_bags',   basePrice: 43, rating: 4.7, reviews: 152, isEco: false, isBestseller: false, minOrder: 200, color: '#f4f0e8', tag: 'Plain'      },
+  { id: 'd7',  name: 'White Duplex Bag — Large (Plain)',           slug: 'duplex-bag-large-plain', category: 'duplex_bags',   basePrice: 53, rating: 4.6, reviews: 118, isEco: false, isBestseller: false, minOrder: 200, color: '#eeeae0', tag: 'Plain'      },
+  { id: 'd8',  name: 'White Duplex Bag — Extra Large (Plain)',     slug: 'duplex-bag-xl-plain',    category: 'duplex_bags',   basePrice: 65, rating: 4.6, reviews: 84,  isEco: false, isBestseller: false, minOrder: 200, color: '#e8e2d8', tag: 'Plain'      },
+  /* ── Cake & Cookies Boxes ── */
+  { id: 'b1',  name: '1kg Cake Box (with Logo)',                    slug: 'cake-box-1kg-logo',          category: 'cake_boxes',    basePrice: 60, rating: 4.9, reviews: 203, isEco: false, isBestseller: true,  minOrder: 200, color: '#fde68a', tag: '1kg'        },
+  { id: 'b2',  name: '1kg Cake Box (Window + Logo)',                slug: 'cake-box-1kg-window-logo',   category: 'cake_boxes',    basePrice: 70, rating: 5.0, reviews: 178, isEco: false, isBestseller: true,  minOrder: 200, color: '#fbbf24', tag: '1kg Window' },
+  { id: 'b3',  name: '2kg Cake Box (with Logo)',                    slug: 'cake-box-2kg-logo',          category: 'cake_boxes',    basePrice: 80, rating: 4.8, reviews: 134, isEco: false, isBestseller: false, minOrder: 200, color: '#f59e0b', tag: '2kg'        },
+  { id: 'b4',  name: '2kg Cookies Box (Window + Logo)',             slug: 'cookies-box-2kg-window-logo',category: 'cake_boxes',    basePrice: 90, rating: 4.8, reviews: 98,  isEco: false, isBestseller: false, minOrder: 200, color: '#d97706', tag: '2kg Window' },
+  { id: 'b5',  name: '1kg Cookies Box (with Logo)',                 slug: 'cookies-box-1kg-logo',       category: 'cake_boxes',    basePrice: 55, rating: 4.7, reviews: 156, isEco: false, isBestseller: false, minOrder: 200, color: '#fde68a', tag: '1kg'        },
+  { id: 'b6',  name: '1kg Cookies Box (Window + Logo)',             slug: 'cookies-box-1kg-window-logo',category: 'cake_boxes',    basePrice: 65, rating: 4.8, reviews: 142, isEco: false, isBestseller: false, minOrder: 200, color: '#fbbf24', tag: '1kg Window' },
+  { id: 'b7',  name: '½kg Cake Box (with Logo)',                    slug: 'cake-box-half-logo',         category: 'cake_boxes',    basePrice: 45, rating: 4.9, reviews: 221, isEco: false, isBestseller: true,  minOrder: 200, color: '#fef3c7', tag: '½kg'        },
+  { id: 'b8',  name: '½kg Cookies Box (Window + Logo)',             slug: 'cookies-box-half-window',    category: 'cake_boxes',    basePrice: 50, rating: 4.8, reviews: 187, isEco: false, isBestseller: false, minOrder: 200, color: '#fde68a', tag: '½kg Window' },
+  { id: 'b9',  name: '½kg Cookies Box (with Logo)',                 slug: 'cookies-box-half-logo',      category: 'cake_boxes',    basePrice: 60, rating: 4.7, reviews: 163, isEco: false, isBestseller: false, minOrder: 200, color: '#fbbf24', tag: '½kg'        },
+  /* ── Raw Materials ── */
+  { id: 'r1',  name: 'Silkscreen Frame',                slug: 'silkscreen-frame',         category: 'raw_materials', basePrice: 0, rating: 4.8, reviews: 56,  isEco: false, isBestseller: false, minOrder: 1, color: '#94a3b8', tag: 'Tool'     },
+  { id: 'r2',  name: 'Silkscreen Printer (1-Handle)',   slug: 'silkscreen-printer-1h',    category: 'raw_materials', basePrice: 0, rating: 4.9, reviews: 43,  isEco: false, isBestseller: false, minOrder: 1, color: '#64748b', tag: 'Tool'     },
+  { id: 'r3',  name: 'Silkscreen Printer (2-Handle)',   slug: 'silkscreen-printer-2h',    category: 'raw_materials', basePrice: 0, rating: 4.9, reviews: 38,  isEco: false, isBestseller: false, minOrder: 1, color: '#475569', tag: 'Tool'     },
+  { id: 'r4',  name: 'Silkscreen Printer (4-Handle)',   slug: 'silkscreen-printer-4h',    category: 'raw_materials', basePrice: 0, rating: 5.0, reviews: 29,  isEco: false, isBestseller: false, minOrder: 1, color: '#334155', tag: 'Tool'     },
+  { id: 'r5',  name: 'Eyelet Puncher',                  slug: 'eyelet-puncher',           category: 'raw_materials', basePrice: 0, rating: 4.7, reviews: 62,  isEco: false, isBestseller: false, minOrder: 1, color: '#78716c', tag: 'Tool'     },
+  { id: 'r6',  name: 'Rope Handle — 300m Roll',         slug: 'rope-handle-300m',         category: 'raw_materials', basePrice: 0, rating: 4.8, reviews: 89,  isEco: true,  isBestseller: true,  minOrder: 1, color: '#c8a97e', tag: 'Material' },
+  { id: 'r7',  name: 'Water-Based Ink',                 slug: 'water-based-ink',          category: 'raw_materials', basePrice: 0, rating: 4.8, reviews: 74,  isEco: true,  isBestseller: false, minOrder: 1, color: '#22d3ee', tag: 'Ink'      },
+  { id: 'r8',  name: 'Plastisol Ink',                   slug: 'plastisol-ink',            category: 'raw_materials', basePrice: 0, rating: 4.7, reviews: 67,  isEco: false, isBestseller: false, minOrder: 1, color: '#f59e0b', tag: 'Ink'      },
+  { id: 'r9',  name: 'Aluminium Squeegee — 20cm',       slug: 'squeegee-20cm',            category: 'raw_materials', basePrice: 0, rating: 4.8, reviews: 91,  isEco: false, isBestseller: false, minOrder: 1, color: '#94a3b8', tag: '20cm'     },
+  { id: 'r10', name: 'Aluminium Squeegee — 30cm',       slug: 'squeegee-30cm',            category: 'raw_materials', basePrice: 0, rating: 4.9, reviews: 118, isEco: false, isBestseller: true,  minOrder: 1, color: '#64748b', tag: '30cm'     },
+  { id: 'r11', name: 'Aluminium Squeegee — 45cm',       slug: 'squeegee-45cm',            category: 'raw_materials', basePrice: 0, rating: 4.8, reviews: 76,  isEco: false, isBestseller: false, minOrder: 1, color: '#475569', tag: '45cm'     },
+  { id: 'r12', name: 'Light Box (Exposure Unit)',        slug: 'light-box-exposure',       category: 'raw_materials', basePrice: 0, rating: 4.9, reviews: 51,  isEco: false, isBestseller: false, minOrder: 1, color: '#fbbf24', tag: 'Equipment'},
 ];
 
 type ViewMode = 'grid' | 'list';
@@ -40,7 +66,7 @@ export default function ProductCatalog() {
   const [searchQuery,    setSearchQuery]    = useState('');
   const [viewMode,       setViewMode]       = useState<ViewMode>('grid');
   const [sortBy,         setSortBy]         = useState<SortOption>('featured');
-  const [showFilters,    setShowFilters]    = useState(false);
+  const [showFilters] = useState(false);
   const [priceRange,     setPriceRange]     = useState([0, 100]);
   const [ecoOnly,        setEcoOnly]        = useState(false);
 
@@ -306,8 +332,10 @@ export default function ProductCatalog() {
                     <div className="flex items-end justify-between">
                       <div>
                         <div className="text-xs text-dark-500">from</div>
-                        <div className="font-bold text-white">ETB {product.basePrice.toFixed(2)}</div>
-                        <div className="text-xs text-dark-500">min. {product.minOrder.toLocaleString()} pcs</div>
+                        <div className="font-bold text-white">
+                          {product.basePrice > 0 ? `ETB ${product.basePrice}` : 'Contact for price'}
+                        </div>
+                        <div className="text-xs text-dark-500">min. {product.minOrder.toLocaleString()} {product.minOrder === 1 ? 'unit' : 'pcs'}</div>
                       </div>
                       <div className="flex gap-2">
                         <button className="btn-secondary text-xs px-3 py-2 gap-1">
