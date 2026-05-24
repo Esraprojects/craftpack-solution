@@ -2,26 +2,62 @@
 
 import { useRef, useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
-import { ArrowRight, ShoppingCart, Star, Leaf, Package, Tag } from 'lucide-react';
+import { ArrowRight, ShoppingCart, Star, Leaf } from 'lucide-react';
 import { cn } from '@/lib/utils';
+
+const img = (name: string) => `/images/${name.replace(/ /g, '%20')}`;
 
 /* ── Bag products shown with toggle (grouped by size) ── */
 const BAG_FEATURED = [
-  { id:'kf-m', name:'Kraft Paper Bag — Medium',     category:'Kraft Paper Bag',  color:'#c8a97e', isEco:true,  isBestseller:true,  rating:4.9, reviews:186, minOrder:200, desc:'Most popular. Perfect for cafes, retail and boutique shops.', variants:[{label:'With Logo',price:45,slug:'kraft-bag-medium-logo'},{label:'Plain',price:32,slug:'kraft-bag-medium-plain'}] },
-  { id:'df-m', name:'White Duplex Bag — Medium',    category:'White Duplex Bag',  color:'#e8e2d8', isEco:false, isBestseller:true,  rating:4.9, reviews:148, minOrder:200, desc:'Premium white finish. Ideal for fashion and high-end retail.', variants:[{label:'With Logo',price:53,slug:'duplex-bag-medium-logo'},{label:'Plain',price:43,slug:'duplex-bag-medium-plain'}] },
-  { id:'kf-s', name:'Kraft Paper Bag — Small',      category:'Kraft Paper Bag',  color:'#d4b896', isEco:true,  isBestseller:true,  rating:4.9, reviews:214, minOrder:200, desc:'Best for cafes, juice bars and small boutique retail.',        variants:[{label:'With Logo',price:39,slug:'kraft-bag-small-logo'},{label:'Plain',price:29,slug:'kraft-bag-small-plain'}] },
+  {
+    id:'kf-m', name:'Kraft Paper Bag — Medium', category:'Kraft Paper Bag',
+    imageStem:'kraft-bag-medium',
+    isEco:true, isBestseller:true, rating:4.9, reviews:186, minOrder:200,
+    desc:'Most popular. Perfect for cafes, retail and boutique shops.',
+    variants:[{label:'With Logo',price:45,slug:'kraft-bag-medium-logo'},{label:'Plain',price:32,slug:'kraft-bag-medium-plain'}],
+  },
+  {
+    id:'df-m', name:'White Duplex Bag — Medium', category:'White Duplex Bag',
+    imageStem:'white duplex-bag-medium',
+    isEco:false, isBestseller:true, rating:4.9, reviews:148, minOrder:200,
+    desc:'Premium white finish. Ideal for fashion and high-end retail.',
+    variants:[{label:'With Logo',price:53,slug:'duplex-bag-medium-logo'},{label:'Plain',price:43,slug:'duplex-bag-medium-plain'}],
+  },
+  {
+    id:'kf-s', name:'Kraft Paper Bag — Small', category:'Kraft Paper Bag',
+    imageStem:'kraft-bag-small',
+    isEco:true, isBestseller:true, rating:4.9, reviews:214, minOrder:200,
+    desc:'Best for cafes, juice bars and small boutique retail.',
+    variants:[{label:'With Logo',price:39,slug:'kraft-bag-small-logo'},{label:'Plain',price:29,slug:'kraft-bag-small-plain'}],
+  },
 ];
 
 /* ── Box products (single cards) ── */
 const BOX_FEATURED = [
-  { id:'bf-7', name:'½kg Cake Box (with Logo)',       category:'Cake & Cookies Box', color:'#fef3c7', isEco:false, isBestseller:true,  rating:4.9, reviews:221, minOrder:200, basePrice:45,  slug:'cake-box-half-logo',        desc:'Most popular. Mini cakes, pastry slices and take-away.' },
-  { id:'bf-2', name:'1kg Cake Box (Window + Logo)',   category:'Cake & Cookies Box', color:'#fbbf24', isEco:false, isBestseller:true,  rating:5.0, reviews:178, minOrder:200, basePrice:70,  slug:'cake-box-1kg-window-logo',  desc:'PVC window display box. Premium gifting and patisseries.' },
-  { id:'bf-3', name:'2kg Cake Box (with Logo)',       category:'Cake & Cookies Box', color:'#f59e0b', isEco:false, isBestseller:false, rating:4.8, reviews:134, minOrder:200, basePrice:80,  slug:'cake-box-2kg-logo',         desc:'Large format for wedding cakes and catering orders.' },
+  {
+    id:'bf-7', name:'½kg Cake Box (with Logo)', category:'Cake & Cookies Box',
+    image: img('half kg cake box-logo.png'),
+    isEco:false, isBestseller:true, rating:4.9, reviews:221, minOrder:500, basePrice:45,
+    slug:'cake-box-half-logo', desc:'Most popular. Mini cakes, pastry slices and take-away.',
+  },
+  {
+    id:'bf-2', name:'1kg Cake Box (Window + Logo)', category:'Cake & Cookies Box',
+    image: img('1kg cake box-window-logo.png'),
+    isEco:false, isBestseller:true, rating:5.0, reviews:178, minOrder:500, basePrice:70,
+    slug:'cake-box-1kg-window-logo', desc:'PVC window display box. Premium gifting and patisseries.',
+  },
+  {
+    id:'bf-3', name:'2kg Cake Box (with Logo)', category:'Cake & Cookies Box',
+    image: img('2kg cake box-logo.png'),
+    isEco:false, isBestseller:false, rating:4.8, reviews:134, minOrder:500, basePrice:80,
+    slug:'cake-box-2kg-logo', desc:'Large format for wedding cakes and catering orders.',
+  },
 ];
 
-/* ── Variant slide toggle (shared) ── */
-function VariantToggle({ variants, active, onChange }: { variants: {label:string}[]; active: number; onChange:(i:number)=>void }) {
+/* ── Variant slide toggle ── */
+function VariantToggle({ variants, active, onChange }: { variants:{label:string}[]; active:number; onChange:(i:number)=>void }) {
   return (
     <div className="relative flex rounded-lg bg-white/[0.06] border border-white/[0.09] p-0.5 w-full">
       <motion.div
@@ -31,7 +67,8 @@ function VariantToggle({ variants, active, onChange }: { variants: {label:string
       />
       {variants.map((v, i) => (
         <button key={v.label} onClick={() => onChange(i)}
-          className={cn('relative z-10 flex-1 text-xs font-semibold py-1.5 rounded-md transition-colors duration-200', active === i ? 'text-white' : 'text-dark-400 hover:text-dark-200')}>
+          className={cn('relative z-10 flex-1 text-xs font-semibold py-1.5 rounded-md transition-colors duration-200',
+            active === i ? 'text-white' : 'text-dark-400 hover:text-dark-200')}>
           {v.label}
         </button>
       ))}
@@ -39,33 +76,39 @@ function VariantToggle({ variants, active, onChange }: { variants: {label:string
   );
 }
 
-/* ── Bag card with variant toggle ── */
+/* ── Bag card — image swaps with variant toggle ── */
 function BagCard({ product, index }: { product: typeof BAG_FEATURED[0]; index: number }) {
   const [active, setActive] = useState(0);
   const v = product.variants[active];
+  const imageSrc = img(`${product.imageStem}-${active === 0 ? 'logo' : 'plain'}.png`);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }} transition={{ duration: 0.5, delay: index * 0.08 }}
       className="card card-hover group"
     >
-      <div className="relative h-48 rounded-t-2xl overflow-hidden bg-gradient-to-br from-dark-800 to-dark-700">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-24 h-32 rounded-lg shadow-2xl group-hover:scale-110 group-hover:rotate-2 transition-transform duration-500"
-            style={{ background: `linear-gradient(135deg, ${product.color}50, ${product.color}20)`, border: `1px solid ${product.color}40`, boxShadow: `0 20px 40px ${product.color}20` }}>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="font-display font-bold text-3xl opacity-40" style={{ color: product.color }}>CP</span>
-            </div>
-          </div>
-        </div>
-        <div className="absolute top-3 left-3 flex flex-col gap-1.5">
+      {/* Real product image */}
+      <div className="relative h-52 rounded-t-2xl overflow-hidden bg-dark-900">
+        <motion.div key={imageSrc} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.2 }}
+          className="absolute inset-0">
+          <Image
+            src={imageSrc}
+            alt={`${product.name} — ${v.label}`}
+            fill
+            className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        </motion.div>
+        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
           {product.isBestseller && <span className="badge bg-gold-500/20 text-gold-300 border border-gold-500/30"><Star className="w-2.5 h-2.5 fill-current" /> Bestseller</span>}
           {product.isEco && <span className="badge bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"><Leaf className="w-2.5 h-2.5" /> Eco</span>}
         </div>
-        <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+        <div className="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
           <button className="w-full btn-primary text-xs py-2 gap-1.5"><ShoppingCart className="w-3.5 h-3.5" /> Quick Add</button>
         </div>
       </div>
+
       <div className="p-5 space-y-3">
         <div>
           <div className="text-xs text-dark-500 mb-1">{product.category}</div>
@@ -94,7 +137,7 @@ function BagCard({ product, index }: { product: typeof BAG_FEATURED[0]; index: n
   );
 }
 
-/* ── Box / single product card ── */
+/* ── Box card ── */
 function BoxCard({ product, index }: { product: typeof BOX_FEATURED[0]; index: number }) {
   return (
     <motion.div
@@ -102,17 +145,22 @@ function BoxCard({ product, index }: { product: typeof BOX_FEATURED[0]; index: n
       viewport={{ once: true, margin: '-50px' }} transition={{ duration: 0.5, delay: index * 0.08 }}
       className="card card-hover group"
     >
-      <div className="relative h-48 rounded-t-2xl overflow-hidden bg-gradient-to-br from-dark-800 to-dark-700">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-24 h-24 rounded-xl shadow-2xl group-hover:scale-110 transition-transform duration-500 flex items-center justify-center"
-            style={{ background: `linear-gradient(135deg, ${product.color}50, ${product.color}20)`, border: `1px solid ${product.color}40`, boxShadow: `0 20px 40px ${product.color}20` }}>
-            <Package className="w-10 h-10 opacity-40" style={{ color: product.color }} />
-          </div>
-        </div>
+      {/* Real product image */}
+      <div className="relative h-52 rounded-t-2xl overflow-hidden bg-dark-900">
+        <Image
+          src={product.image}
+          alt={product.name}
+          fill
+          className="object-contain p-4 group-hover:scale-110 transition-transform duration-500"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
         {product.isBestseller && (
-          <span className="absolute top-3 left-3 badge bg-gold-500/20 text-gold-300 border border-gold-500/30"><Star className="w-2.5 h-2.5 fill-current" /> Bestseller</span>
+          <span className="absolute top-3 left-3 badge bg-gold-500/20 text-gold-300 border border-gold-500/30 z-10">
+            <Star className="w-2.5 h-2.5 fill-current" /> Bestseller
+          </span>
         )}
       </div>
+
       <div className="p-5 space-y-3">
         <div>
           <div className="text-xs text-dark-500 mb-1">{product.category}</div>
@@ -175,7 +223,7 @@ export default function FeaturedProducts() {
           Slide the toggle on bag cards to compare <strong>With Logo</strong> vs <strong>Plain</strong> pricing
         </div>
 
-        {/* Bag cards (with toggle) */}
+        {/* Bag cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
           {BAG_FEATURED.map((p, i) => <BagCard key={p.id} product={p} index={i} />)}
         </div>
