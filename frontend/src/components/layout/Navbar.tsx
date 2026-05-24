@@ -2,12 +2,12 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Menu, X, ShoppingCart, User, ChevronDown,
-  Package, Star, Globe, Leaf, Phone, FileText,
-  BarChart2, Settings, LogOut, Bell, Search, Sun, Moon
+  Menu, X, ShoppingCart, ChevronDown,
+  Package, Star, Globe, Leaf, FileText,
+  BarChart2, Settings, LogOut, Sun, Moon, ArrowLeft,
 } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib/utils';
@@ -54,6 +54,7 @@ const navItems = [
 
 export default function Navbar() {
   const pathname    = usePathname();
+  const router      = useRouter();
   const { user, isAuthenticated, clearAuth } = useAuthStore();
   const { itemCount, toggleCart }            = useCartStore();
   const cartCount   = itemCount();
@@ -93,18 +94,42 @@ export default function Navbar() {
         <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18 py-3">
 
-            {/* Logo */}
-            <Link href="/" className="flex items-center gap-2 group">
-              <img
-                src="/logo.png"
-                alt="Craftpack Solution"
-                className="h-12 w-12 object-contain rounded-xl group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="hidden sm:block">
-                <div className="font-display font-bold text-zinc-900 dark:text-white text-lg leading-none">Craftpack</div>
-                <div className="text-zinc-500 dark:text-zinc-400 text-xs font-medium tracking-widest uppercase leading-none mt-0.5">Solution</div>
-              </div>
-            </Link>
+            {/* Logo + Back button */}
+            <div className="flex items-center gap-2">
+              <AnimatePresence>
+                {pathname !== '/' && (
+                  <motion.button
+                    key="back-btn"
+                    initial={{ opacity: 0, x: -12, width: 0 }}
+                    animate={{ opacity: 1, x: 0, width: 'auto' }}
+                    exit={{ opacity: 0, x: -12, width: 0 }}
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    onClick={() => router.back()}
+                    aria-label="Go back"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-sm font-medium
+                               text-white/80 hover:text-white
+                               bg-white/0 hover:bg-white/10
+                               border border-transparent hover:border-white/15
+                               transition-colors duration-200 overflow-hidden whitespace-nowrap"
+                  >
+                    <ArrowLeft className="w-4 h-4 flex-shrink-0" />
+                    <span className="hidden sm:inline">Back</span>
+                  </motion.button>
+                )}
+              </AnimatePresence>
+
+              <Link href="/" className="flex items-center gap-2 group">
+                <img
+                  src="/logo.png"
+                  alt="Craftpack Solution"
+                  className="h-12 w-12 object-contain rounded-xl group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="hidden sm:block">
+                  <div className="font-display font-bold text-zinc-900 dark:text-white text-lg leading-none">Craftpack</div>
+                  <div className="text-zinc-500 dark:text-zinc-400 text-xs font-medium tracking-widest uppercase leading-none mt-0.5">Solution</div>
+                </div>
+              </Link>
+            </div>
 
             {/* Desktop Nav */}
             <div className="hidden lg:flex items-center gap-1" ref={dropdownRef}>
@@ -260,8 +285,17 @@ export default function Navbar() {
               <ThemeToggle />
             </div>
 
-            {/* Mobile Menu Toggle */}
+            {/* Mobile: back + cart + hamburger */}
             <div className="flex lg:hidden items-center gap-2">
+              {pathname !== '/' && (
+                <button
+                  onClick={() => router.back()}
+                  aria-label="Go back"
+                  className="p-2.5 rounded-xl hover:bg-white/10 text-white/80 hover:text-white transition-colors"
+                >
+                  <ArrowLeft className="w-5 h-5" />
+                </button>
+              )}
               <button onClick={toggleCart} className="relative p-2.5 rounded-xl hover:bg-white/10 text-white/90 hover:text-white transition-colors">
                 <ShoppingCart className="w-5 h-5" />
                 {cartCount > 0 && (
