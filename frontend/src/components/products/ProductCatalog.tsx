@@ -32,13 +32,19 @@ const ROPE_COLORS = [
 
 const LOGO_SURCHARGE = 7; // ETB per bag for 2-side printing
 
+const FRAME_SIZES = [
+  { label: 'A5', price: 1200 },
+  { label: 'A4', price: 1800 },
+  { label: 'A3', price: 2200 },
+];
+
 const CATEGORIES = [
-  { id: 'all',           label: 'All Products',         count: 29 },
+  { id: 'all',           label: 'All Products',         count: 27 },
   { id: 'kraft_bags',    label: 'Kraft Paper Bags',     count: 4  },
   { id: 'duplex_bags',   label: 'White Duplex Bags',    count: 4  },
   { id: 'takeaway_bags', label: 'Take Away Bags',       count: 1  },
   { id: 'cake_boxes',    label: 'Cake & Cookies Boxes', count: 9  },
-  { id: 'raw_materials', label: 'Raw Materials',        count: 14 },
+  { id: 'raw_materials', label: 'Raw Materials',        count: 12 },
 ];
 
 /* encode spaces in image filenames for use as URL src */
@@ -193,18 +199,15 @@ const SINGLES: SingleProduct[] = [
     image: img('2kg cake box-plain.png'),
   },
   /* ── Raw Materials ────────────────────────────────────────────── */
-  { id:'r1',  name:'Silkscreen Frame',               slug:'silkscreen-frame',        category:'raw_materials', basePrice:0,  rating:4.8, reviews:56,  isEco:false, isBestseller:false, minOrder:1, color:'#94a3b8', tag:'Tool',      desc:'Professional aluminium silkscreen frame. Various mesh sizes available.' },
-  { id:'r2',  name:'Silkscreen Printer — 1 Handle', slug:'silkscreen-printer-1h',   category:'raw_materials', basePrice:0,  rating:4.9, reviews:43,  isEco:false, isBestseller:false, minOrder:1, color:'#64748b', tag:'Tool',      desc:'Single-handle desktop silkscreen press for small-scale printing.' },
-  { id:'r3',  name:'Silkscreen Printer — 2 Handle', slug:'silkscreen-printer-2h',   category:'raw_materials', basePrice:0,  rating:4.9, reviews:38,  isEco:false, isBestseller:false, minOrder:1, color:'#475569', tag:'Tool',      desc:'Two-handle press for improved stability and consistent results.' },
-  { id:'r4',  name:'Silkscreen Printer — 4 Handle', slug:'silkscreen-printer-4h',   category:'raw_materials', basePrice:0,  rating:5.0, reviews:29,  isEco:false, isBestseller:false, minOrder:1, color:'#334155', tag:'Tool',      desc:'Professional 4-handle press for high-volume printing operations.' },
-  { id:'r5',  name:'Eyelet Puncher',                 slug:'eyelet-puncher',          category:'raw_materials', basePrice:0,  rating:4.7, reviews:62,  isEco:false, isBestseller:false, minOrder:1, color:'#78716c', tag:'Tool',      desc:'Heavy-duty manual eyelet puncher for installing rope handles.' },
-  { id:'r6',  name:'Rope Handle — 300m Roll',        slug:'rope-handle-300m',        category:'raw_materials', basePrice:0,  rating:4.8, reviews:89,  isEco:true,  isBestseller:true,  minOrder:1, color:'#c8a97e', tag:'Material',  desc:'Twisted paper rope handle. 300m per roll, natural kraft colour.' },
-  { id:'r7',  name:'Water-Based Ink',                slug:'water-based-ink',         category:'raw_materials', basePrice:0,  rating:4.8, reviews:74,  isEco:true,  isBestseller:false, minOrder:1, color:'#22d3ee', tag:'Ink',       desc:'Eco-friendly water-based ink. Vibrant colour, quick-dry formula.' },
-  { id:'r8',  name:'Plastisol Ink',                  slug:'plastisol-ink',           category:'raw_materials', basePrice:0,  rating:4.7, reviews:67,  isEco:false, isBestseller:false, minOrder:1, color:'#f59e0b', tag:'Ink',       desc:'High-opacity plastisol ink for silkscreen printing on paper bags.' },
-  { id:'r9',  name:'Aluminium Squeegee — 20cm',      slug:'squeegee-20cm',           category:'raw_materials', basePrice:0,  rating:4.8, reviews:91,  isEco:false, isBestseller:false, minOrder:1, color:'#94a3b8', tag:'20cm',      desc:'20cm aluminium squeegee for small silkscreen frames.' },
-  { id:'r10', name:'Aluminium Squeegee — 30cm',      slug:'squeegee-30cm',           category:'raw_materials', basePrice:0,  rating:4.9, reviews:118, isEco:false, isBestseller:true,  minOrder:1, color:'#64748b', tag:'30cm',      desc:'30cm squeegee — most popular size for standard bag printing.' },
-  { id:'r11', name:'Aluminium Squeegee — 45cm',      slug:'squeegee-45cm',           category:'raw_materials', basePrice:0,  rating:4.8, reviews:76,  isEco:false, isBestseller:false, minOrder:1, color:'#475569', tag:'45cm',      desc:'45cm wide squeegee for large-format silkscreen frames.' },
-  { id:'r12', name:'Light Box (Exposure Unit)',       slug:'light-box-exposure',      category:'raw_materials', basePrice:0,  rating:4.9, reviews:51,  isEco:false, isBestseller:false, minOrder:1, color:'#fbbf24', tag:'Equipment', desc:'UV exposure unit for burning silkscreen stencils. Professional grade.' },
+  { id:'r2',  name:'Silkscreen Printer — 1 Handle', slug:'silkscreen-printer-1h',   category:'raw_materials', basePrice:10000, rating:4.9, reviews:43,  isEco:false, isBestseller:false, minOrder:1, color:'#64748b', tag:'Tool',      desc:'Single-handle desktop silkscreen press for small-scale printing.',      image: img('silkscreen printing machine one handle.png') },
+  { id:'r4',  name:'Silkscreen Printer — 4 Handle', slug:'silkscreen-printer-4h',   category:'raw_materials', basePrice:35000, rating:5.0, reviews:29,  isEco:false, isBestseller:false, minOrder:1, color:'#334155', tag:'Tool',      desc:'Professional 4-handle press for high-volume printing operations.',      image: img('silkscreen printing machine 4 handles.png') },
+  { id:'r5',  name:'Eyelet Puncher',                 slug:'eyelet-puncher',          category:'raw_materials', basePrice:4500,  rating:4.7, reviews:62,  isEco:false, isBestseller:false, minOrder:1, color:'#78716c', tag:'Tool',      desc:'Heavy-duty manual eyelet puncher for installing rope handles.',          image: img('eylet puncher.png') },
+  { id:'r6',  name:'Rope Handle — 300m Roll',        slug:'rope-handle-300m',        category:'raw_materials', basePrice:1600,  rating:4.8, reviews:89,  isEco:true,  isBestseller:true,  minOrder:1, color:'#c8a97e', tag:'Material',  desc:'Twisted paper rope handle. 300m per roll, natural kraft colour.' },
+  { id:'r7',  name:'Water-Based Ink',                slug:'water-based-ink',         category:'raw_materials', basePrice:2000,  rating:4.8, reviews:74,  isEco:true,  isBestseller:false, minOrder:1, color:'#22d3ee', tag:'per kg',    desc:'Eco-friendly water-based ink. Vibrant colour, quick-dry formula.',       image: img('water base ink-Photoroom.png') },
+  { id:'r8',  name:'Plastisol Ink',                  slug:'plastisol-ink',           category:'raw_materials', basePrice:3000,  rating:4.7, reviews:67,  isEco:false, isBestseller:false, minOrder:1, color:'#f59e0b', tag:'per kg',    desc:'High-opacity plastisol ink for silkscreen printing on paper bags.',      image: img('plastisol ink-Photoroom.png') },
+  { id:'r9',  name:'Aluminium Squeegee — 15cm',      slug:'squeegee-15cm',           category:'raw_materials', basePrice:2000,  rating:4.8, reviews:91,  isEco:false, isBestseller:false, minOrder:1, color:'#94a3b8', tag:'15cm',      desc:'15cm aluminium squeegee for silkscreen printing on bags and frames.',    image: img('alumunium squeegee 15 cm.png') },
+  { id:'r12', name:'Light Box (Exposure Unit)',       slug:'light-box-exposure',      category:'raw_materials', basePrice:0,     rating:4.9, reviews:51,  isEco:false, isBestseller:false, minOrder:1, color:'#fbbf24', tag:'Equipment', desc:'UV exposure unit for burning silkscreen stencils. Professional grade.' },
+  { id:'r13', name:'Photo Emulsion (Ulano 925 WR-P)',slug:'photo-emulsion',          category:'raw_materials', basePrice:4500,  rating:4.9, reviews:45,  isEco:false, isBestseller:false, minOrder:1, color:'#7c3aed', tag:'Emulsion',  desc:'Diazo photo emulsion for silkscreen printing. Water-resistant formula.',  image: img('photo emulsion-Photoroom.png') },
 ];
 
 interface KraftRoll {
@@ -628,6 +631,121 @@ function SingleCard({ product }: { product: SingleProduct }) {
 }
 
 /* ════════════════════════════════════════════════════════════════
+   SILKSCREEN FRAME CARD (A5 / A4 / A3 size selector)
+══════════════════════════════════════════════════════════════════ */
+function SilkscreenFrameCard() {
+  const [selectedSize, setSelectedSize] = useState(1); // default A4
+  const [qty,    setQty]    = useState(1);
+  const [showWA, setShowWA] = useState(false);
+
+  const size  = FRAME_SIZES[selectedSize];
+  const total = size.price * qty;
+
+  const waMessage = [
+    `🖼️ *Order — Craftpack Solution*`,
+    ``,
+    `*Product:* Silkscreen Frame`,
+    `*Size:* ${size.label}`,
+    `*Quantity:* ${qty} unit(s)`,
+    `*Unit Price:* ETB ${size.price.toLocaleString()}`,
+    `*Total:* ETB ${total.toLocaleString()}`,
+    ``,
+    `Please confirm availability and delivery. Thank you! 🙏`,
+  ].join('\n');
+
+  return (
+    <>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+        className="card card-hover group flex flex-col">
+
+        <div className="relative h-52 rounded-t-2xl overflow-hidden bg-dark-900">
+          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-dark-800 to-dark-700">
+            <div className="w-20 h-20 rounded-xl shadow-xl group-hover:scale-110 transition-transform duration-500 flex items-center justify-center"
+              style={{ background: 'linear-gradient(135deg, #94a3b850, #94a3b820)', border: '1px solid #94a3b840' }}>
+              <Package className="w-8 h-8 opacity-40" style={{ color: '#94a3b8' }} />
+            </div>
+          </div>
+          <span className="absolute top-2 right-2 badge bg-white/5 text-dark-400 border border-white/8 text-xs z-10">
+            <Tag className="w-2.5 h-2.5" /> Frame
+          </span>
+        </div>
+
+        <div className="p-4 flex flex-col gap-3 flex-1">
+          <div>
+            <p className="text-2xs text-dark-500 uppercase tracking-wider mb-0.5">raw materials</p>
+            <h3 className="font-semibold text-white text-sm group-hover:text-brand-300 transition-colors leading-snug">Silkscreen Frame</h3>
+            <p className="text-xs text-dark-500 mt-0.5 line-clamp-2">Professional aluminium silkscreen frame. Available in A5, A4, and A3 sizes.</p>
+          </div>
+
+          {/* Size selector */}
+          <div>
+            <span className="text-xs text-dark-400 block mb-1.5">Size</span>
+            <div className="grid grid-cols-3 gap-1.5">
+              {FRAME_SIZES.map((s, i) => (
+                <button key={s.label} onClick={() => setSelectedSize(i)}
+                  className={cn('py-2 px-1 rounded-lg text-center transition-all border',
+                    selectedSize === i
+                      ? 'bg-brand-600/25 border-brand-500/50 text-brand-300'
+                      : 'bg-white/4 border-white/8 text-dark-400 hover:bg-white/8')}>
+                  <p className="text-xs font-semibold">{s.label}</p>
+                  <p className="text-2xs opacity-70">ETB {s.price.toLocaleString()}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Order widget */}
+          <div className="space-y-2.5 pt-1 border-t border-white/5 flex-1 flex flex-col justify-end">
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-dark-400">Quantity</span>
+              <QtyInput value={qty} onChange={setQty} min={1} step={1} />
+            </div>
+
+            <div className="bg-amber-500/5 border border-amber-500/15 rounded-xl p-3 space-y-1">
+              <div className="flex justify-between text-xs text-dark-400">
+                <span>Size</span><span className="text-dark-200">{size.label}</span>
+              </div>
+              <div className="flex justify-between text-xs text-dark-400">
+                <span>Unit price</span><span className="text-dark-200">ETB {size.price.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between text-xs text-dark-400">
+                <span>Quantity</span><span className="text-dark-200">{qty} unit(s)</span>
+              </div>
+              <div className="flex justify-between font-bold text-sm pt-1 border-t border-white/5">
+                <span className="text-white">Total</span>
+                <motion.span key={total} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+                  className="text-gold-300">ETB {total.toLocaleString()}</motion.span>
+              </div>
+            </div>
+
+            <div className="flex gap-2">
+              <button onClick={() => toast.success('Added to cart!', { icon: '🛒' })}
+                className="btn-secondary flex-1 text-xs py-2.5 gap-1.5">
+                <ShoppingCart className="w-3.5 h-3.5" /> Add to Cart
+              </button>
+              <button onClick={() => setShowWA(true)}
+                className="flex-1 text-xs py-2.5 rounded-xl font-semibold flex items-center justify-center gap-1.5 bg-green-600/20 border border-green-500/35 text-green-300 hover:bg-green-600/30 hover:border-green-500/60 transition-all">
+                <MessageCircle className="w-3.5 h-3.5" /> WhatsApp Order
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-1 pt-1 border-t border-white/5">
+            <Star className="w-3 h-3 text-gold-400 fill-current" />
+            <span className="text-xs font-medium text-white">4.8</span>
+            <span className="text-xs text-dark-500">(56)</span>
+          </div>
+        </div>
+      </motion.div>
+
+      <AnimatePresence>
+        {showWA && <WhatsAppModal message={waMessage} onClose={() => setShowWA(false)} />}
+      </AnimatePresence>
+    </>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
    KRAFT PAPER ROLL CARD
 ══════════════════════════════════════════════════════════════════ */
 type RollOrderType = 'rim' | 'kg' | 'roll';
@@ -1038,10 +1156,15 @@ export default function ProductCatalog() {
               )}
 
               {/* Printing Supplies */}
-              {rawItems.length > 0 && (
+              {(rawItems.length > 0 || activeCategory === 'all' || activeCategory === 'raw_materials') && (
                 <div>
                   {(activeCategory === 'all' || activeCategory === 'raw_materials') && <SectionHeader icon={Tag} label="Printing Supplies" desc="Silkscreen tools, inks and equipment for bag printing." />}
                   <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
+                    {/* Silkscreen Frame — inline size selector (A5 / A4 / A3) */}
+                    {(activeCategory === 'all' || activeCategory === 'raw_materials') &&
+                      (!searchQuery || 'silkscreen frame'.includes(searchQuery.toLowerCase())) && (
+                      <SilkscreenFrameCard />
+                    )}
                     {rawItems.map(item => <SingleCard key={(item.data as SingleProduct).id} product={item.data as SingleProduct} />)}
                   </div>
                 </div>
