@@ -39,11 +39,11 @@ const FRAME_SIZES = [
 ];
 
 const CATEGORIES = [
-  { id: 'all',           label: 'All Products',         count: 27 },
+  { id: 'all',           label: 'All Products',         count: 21 },
   { id: 'kraft_bags',    label: 'Kraft Paper Bags',     count: 4  },
   { id: 'duplex_bags',   label: 'White Duplex Bags',    count: 4  },
   { id: 'takeaway_bags', label: 'Take Away Bags',       count: 1  },
-  { id: 'cake_boxes',    label: 'Cake & Cookies Boxes', count: 9  },
+  { id: 'cake_boxes',    label: 'Cake & Cookies Boxes', count: 3  },
   { id: 'raw_materials', label: 'Raw Materials',        count: 12 },
 ];
 
@@ -134,79 +134,65 @@ const GROUPED: GroupedProduct[] = [
   },
 ];
 
+/* ── Cake Box Groups (3 cards, each with 3 variants) ─────────── */
+interface CakeBoxVariant { label: string; price: number; image: string; }
+interface CakeBoxGroup {
+  id: string; name: string;
+  variants: CakeBoxVariant[];
+  rating: number; reviews: number; isBestseller: boolean; minOrder: number; desc: string;
+}
+
+const CAKE_BOX_GROUPS: CakeBoxGroup[] = [
+  {
+    id: 'cbg-half', name: '½kg Cake Box',
+    variants: [
+      { label: 'With Logo',     price: 45, image: img('half kg cake box-logo.png') },
+      { label: 'Window + Logo', price: 50, image: img('half kg cake box-window-logo.png') },
+      { label: 'Plain',         price: 38, image: img('half kg cake box-plain.png') },
+    ],
+    rating: 4.9, reviews: 221, isBestseller: true, minOrder: 500,
+    desc: 'Most popular for mini cakes, pastry slices and take-away.',
+  },
+  {
+    id: 'cbg-1kg', name: '1kg Cake Box',
+    variants: [
+      { label: 'Window + Logo',  price: 70, image: img('1kg cake box-window-logo.png') },
+      { label: 'Window — Plain', price: 60, image: img('1kg cake box-window-plain.png') },
+      { label: 'Plain',          price: 55, image: img('1kg cake box-plain.png') },
+    ],
+    rating: 5.0, reviews: 178, isBestseller: true, minOrder: 500,
+    desc: 'PVC window option available. Perfect for premium display and gifting.',
+  },
+  {
+    id: 'cbg-2kg', name: '2kg Cake Box',
+    variants: [
+      { label: 'With Logo',     price: 80, image: img('2kg cake box-logo.png') },
+      { label: 'Window + Logo', price: 90, image: img('2kg cake box-window-logo.png') },
+      { label: 'Plain',         price: 70, image: img('2kg cake box-plain.png') },
+    ],
+    rating: 4.8, reviews: 134, isBestseller: false, minOrder: 500,
+    desc: 'Large cake box for wedding cakes and catering orders.',
+  },
+];
+
 interface SingleProduct {
   id: string; name: string; slug: string; category: string;
   basePrice: number; rating: number; reviews: number;
   isEco: boolean; isBestseller: boolean; minOrder: number;
   color: string; tag: string; desc: string;
-  image?: string;   // real product photo path (optional)
+  image?: string;
 }
 
 const SINGLES: SingleProduct[] = [
-  /* ── Cake & Cookies Boxes ─────────────────────────────────────── */
-  {
-    id:'b7', name:'½kg Cake Box (with Logo)',          slug:'cake-box-half-logo',          category:'cake_boxes',
-    basePrice:45,  rating:4.9, reviews:221, isEco:false, isBestseller:true,  minOrder:500,
-    color:'#fef3c7', tag:'½kg',        desc:'Most popular for mini cakes, pastry slices and take-away.',
-    image: img('half kg cake box-logo.png'),
-  },
-  {
-    id:'b8', name:'½kg Cake Box (Window + Logo)',      slug:'cake-box-half-window-logo',   category:'cake_boxes',
-    basePrice:50,  rating:4.8, reviews:187, isEco:false, isBestseller:false, minOrder:500,
-    color:'#fde68a', tag:'½kg Window', desc:'Gift-ready half-kilo cake box with transparent display window.',
-    image: img('half kg cake box-window-logo.png'),
-  },
-  {
-    id:'b9', name:'½kg Cake Box — Plain',              slug:'cake-box-half-plain',         category:'cake_boxes',
-    basePrice:38,  rating:4.7, reviews:142, isEco:false, isBestseller:false, minOrder:500,
-    color:'#fef3c7', tag:'½kg Plain',  desc:'Plain half-kilo box. Add your own branding or use as-is.',
-    image: img('half kg cake box-plain.png'),
-  },
-  {
-    id:'b1', name:'1kg Cake Box (Window + Logo)',      slug:'cake-box-1kg-window-logo',    category:'cake_boxes',
-    basePrice:70,  rating:5.0, reviews:178, isEco:false, isBestseller:true,  minOrder:500,
-    color:'#fbbf24', tag:'1kg Window', desc:'PVC window box with logo. Perfect for premium display and gifting.',
-    image: img('1kg cake box-window-logo.png'),
-  },
-  {
-    id:'b2', name:'1kg Cake Box (Window — Plain)',     slug:'cake-box-1kg-window-plain',   category:'cake_boxes',
-    basePrice:60,  rating:4.8, reviews:134, isEco:false, isBestseller:false, minOrder:500,
-    color:'#fde68a', tag:'1kg Window', desc:'1kg window box without print. Ready for custom stickers or wrap.',
-    image: img('1kg cake box-window-plain.png'),
-  },
-  {
-    id:'b3', name:'1kg Cake Box — Plain',              slug:'cake-box-1kg-plain',          category:'cake_boxes',
-    basePrice:55,  rating:4.7, reviews:116, isEco:false, isBestseller:false, minOrder:500,
-    color:'#fef3c7', tag:'1kg Plain',  desc:'Standard 1kg cake box, unprinted. Solid and sturdy.',
-    image: img('1kg cake box-plain.png'),
-  },
-  {
-    id:'b4', name:'2kg Cake Box (with Logo)',          slug:'cake-box-2kg-logo',           category:'cake_boxes',
-    basePrice:80,  rating:4.8, reviews:134, isEco:false, isBestseller:false, minOrder:500,
-    color:'#f59e0b', tag:'2kg',        desc:'Large cake box for wedding cakes and catering orders.',
-    image: img('2kg cake box-logo.png'),
-  },
-  {
-    id:'b5', name:'2kg Cake Box (Window + Logo)',      slug:'cake-box-2kg-window-logo',    category:'cake_boxes',
-    basePrice:90,  rating:4.8, reviews:98,  isEco:false, isBestseller:false, minOrder:500,
-    color:'#d97706', tag:'2kg Window', desc:'2kg display box with window — showroom-ready packaging.',
-    image: img('2kg cake box-window-logo.png'),
-  },
-  {
-    id:'b6', name:'2kg Cake Box — Plain',              slug:'cake-box-2kg-plain',          category:'cake_boxes',
-    basePrice:70,  rating:4.7, reviews:87,  isEco:false, isBestseller:false, minOrder:500,
-    color:'#fef3c7', tag:'2kg Plain',  desc:'Large unprinted box. Ideal for events and catering.',
-    image: img('2kg cake box-plain.png'),
-  },
   /* ── Raw Materials ────────────────────────────────────────────── */
   { id:'r2',  name:'Silkscreen Printer — 1 Handle', slug:'silkscreen-printer-1h',   category:'raw_materials', basePrice:10000, rating:4.9, reviews:43,  isEco:false, isBestseller:false, minOrder:1, color:'#64748b', tag:'Tool',      desc:'Single-handle desktop silkscreen press for small-scale printing.',      image: img('silkscreen printing machine one handle.png') },
   { id:'r4',  name:'Silkscreen Printer — 4 Handle', slug:'silkscreen-printer-4h',   category:'raw_materials', basePrice:35000, rating:5.0, reviews:29,  isEco:false, isBestseller:false, minOrder:1, color:'#334155', tag:'Tool',      desc:'Professional 4-handle press for high-volume printing operations.',      image: img('silkscreen printing machine 4 handles.png') },
   { id:'r5',  name:'Eyelet Puncher',                 slug:'eyelet-puncher',          category:'raw_materials', basePrice:4500,  rating:4.7, reviews:62,  isEco:false, isBestseller:false, minOrder:1, color:'#78716c', tag:'Tool',      desc:'Heavy-duty manual eyelet puncher for installing rope handles.',          image: img('eylet puncher.png') },
-  { id:'r6',  name:'Rope Handle — 300m Roll',        slug:'rope-handle-300m',        category:'raw_materials', basePrice:1600,  rating:4.8, reviews:89,  isEco:true,  isBestseller:true,  minOrder:1, color:'#c8a97e', tag:'Material',  desc:'Twisted paper rope handle. 300m per roll, natural kraft colour.' },
+  { id:'r6',  name:'Rope Handle — 300m Roll',        slug:'rope-handle-300m',        category:'raw_materials', basePrice:1600,  rating:4.8, reviews:89,  isEco:true,  isBestseller:true,  minOrder:1, color:'#c8a97e', tag:'Material',  desc:'Twisted paper rope handle. 300m per roll, natural kraft colour.',        image: img('rope 300m.png') },
   { id:'r7',  name:'Water-Based Ink',                slug:'water-based-ink',         category:'raw_materials', basePrice:2000,  rating:4.8, reviews:74,  isEco:true,  isBestseller:false, minOrder:1, color:'#22d3ee', tag:'per kg',    desc:'Eco-friendly water-based ink. Vibrant colour, quick-dry formula.',       image: img('water base ink-Photoroom.png') },
   { id:'r8',  name:'Plastisol Ink',                  slug:'plastisol-ink',           category:'raw_materials', basePrice:3000,  rating:4.7, reviews:67,  isEco:false, isBestseller:false, minOrder:1, color:'#f59e0b', tag:'per kg',    desc:'High-opacity plastisol ink for silkscreen printing on paper bags.',      image: img('plastisol ink-Photoroom.png') },
   { id:'r9',  name:'Aluminium Squeegee — 15cm',      slug:'squeegee-15cm',           category:'raw_materials', basePrice:2000,  rating:4.8, reviews:91,  isEco:false, isBestseller:false, minOrder:1, color:'#94a3b8', tag:'15cm',      desc:'15cm aluminium squeegee for silkscreen printing on bags and frames.',    image: img('alumunium squeegee 15 cm.png') },
-  { id:'r12', name:'Light Box (Exposure Unit)',       slug:'light-box-exposure',      category:'raw_materials', basePrice:0,     rating:4.9, reviews:51,  isEco:false, isBestseller:false, minOrder:1, color:'#fbbf24', tag:'Equipment', desc:'UV exposure unit for burning silkscreen stencils. Professional grade.' },
+  { id:'r12', name:'Light Box (Exposure Unit)',       slug:'light-box-exposure',      category:'raw_materials', basePrice:10000, rating:4.9, reviews:51,  isEco:false, isBestseller:false, minOrder:1, color:'#fbbf24', tag:'Equipment', desc:'UV exposure unit for burning silkscreen stencils. Professional grade.',   image: img('light box.png') },
   { id:'r13', name:'Photo Emulsion (Ulano 925 WR-P)',slug:'photo-emulsion',          category:'raw_materials', basePrice:4500,  rating:4.9, reviews:45,  isEco:false, isBestseller:false, minOrder:1, color:'#7c3aed', tag:'Emulsion',  desc:'Diazo photo emulsion for silkscreen printing. Water-resistant formula.',  image: img('photo emulsion-Photoroom.png') },
 ];
 
@@ -631,6 +617,125 @@ function SingleCard({ product }: { product: SingleProduct }) {
 }
 
 /* ════════════════════════════════════════════════════════════════
+   CAKE BOX GROUP CARD (½kg / 1kg / 2kg with variant selector)
+══════════════════════════════════════════════════════════════════ */
+function CakeBoxGroupCard({ group }: { group: CakeBoxGroup }) {
+  const [activeVariant, setActiveVariant] = useState(0);
+  const [qty,    setQty]    = useState(group.minOrder);
+  const [showWA, setShowWA] = useState(false);
+
+  const v     = group.variants[activeVariant];
+  const total = v.price * qty;
+
+  const waMessage = [
+    `🎂 *Order — Craftpack Solution*`,
+    ``,
+    `*Product:* ${group.name}`,
+    `*Type:* ${v.label}`,
+    `*Quantity:* ${qty.toLocaleString()} pcs`,
+    `*Unit Price:* ETB ${v.price}`,
+    `*Total:* ETB ${total.toLocaleString()}`,
+    ``,
+    `📦 Min. order: ${group.minOrder} pcs`,
+    ``,
+    `Please confirm availability and delivery. Thank you! 🙏`,
+  ].join('\n');
+
+  return (
+    <>
+      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+        className="card card-hover group flex flex-col">
+
+        {/* Image — swaps with variant */}
+        <div className="relative h-52 rounded-t-2xl overflow-hidden bg-dark-900">
+          <motion.div key={v.image} initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            transition={{ duration: 0.2 }} className="absolute inset-0">
+            <Image src={v.image} alt={`${group.name} — ${v.label}`} fill
+              className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
+          </motion.div>
+          {group.isBestseller && (
+            <span className="absolute top-2 left-2 badge bg-gold-500/20 text-gold-300 border border-gold-500/30 text-xs z-10">
+              <Star className="w-2.5 h-2.5 fill-current" /> Best
+            </span>
+          )}
+        </div>
+
+        <div className="p-4 flex flex-col gap-3 flex-1">
+          <div>
+            <p className="text-2xs text-dark-500 uppercase tracking-wider mb-0.5">Cake &amp; Cookies Box</p>
+            <h3 className="font-semibold text-white text-sm group-hover:text-brand-300 transition-colors leading-snug">{group.name}</h3>
+            <p className="text-xs text-dark-500 mt-0.5 line-clamp-1">{group.desc}</p>
+          </div>
+
+          {/* Variant selector */}
+          <div>
+            <span className="text-xs text-dark-400 block mb-1.5">Type</span>
+            <div className="grid grid-cols-3 gap-1">
+              {group.variants.map((variant, i) => (
+                <button key={variant.label} onClick={() => setActiveVariant(i)}
+                  className={cn('py-2 px-1 rounded-lg text-center transition-all border',
+                    activeVariant === i
+                      ? 'bg-brand-600/25 border-brand-500/50 text-brand-300'
+                      : 'bg-white/4 border-white/8 text-dark-400 hover:bg-white/8')}>
+                  <p className="text-2xs font-semibold leading-tight">{variant.label}</p>
+                  <p className="text-2xs opacity-70 mt-0.5">ETB {variant.price}</p>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Order widget */}
+          <div className="space-y-2.5 pt-1 border-t border-white/5 flex-1 flex flex-col justify-end">
+            <div className="flex items-center justify-between">
+              <span className="text-xs text-dark-400">Quantity</span>
+              <QtyInput value={qty} onChange={setQty} min={group.minOrder} step={100} />
+            </div>
+
+            <div className="bg-amber-500/5 border border-amber-500/15 rounded-xl p-3 space-y-1">
+              <div className="flex justify-between text-xs text-dark-400">
+                <span>Unit price</span><span className="text-dark-200">ETB {v.price}</span>
+              </div>
+              <div className="flex justify-between text-xs text-dark-400">
+                <span>Quantity</span><span className="text-dark-200">{qty.toLocaleString()} pcs</span>
+              </div>
+              <div className="flex justify-between font-bold text-sm pt-1 border-t border-white/5">
+                <span className="text-white">Total</span>
+                <motion.span key={total} initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
+                  className="text-gold-300">ETB {total.toLocaleString()}</motion.span>
+              </div>
+            </div>
+
+            <p className="text-2xs text-dark-500 text-center">Min. {group.minOrder} pcs per order</p>
+
+            <div className="flex gap-2">
+              <button onClick={() => toast.success('Added to cart!', { icon: '🎂' })}
+                className="btn-secondary flex-1 text-xs py-2.5 gap-1.5">
+                <ShoppingCart className="w-3.5 h-3.5" /> Add to Cart
+              </button>
+              <button onClick={() => setShowWA(true)}
+                className="flex-1 text-xs py-2.5 rounded-xl font-semibold flex items-center justify-center gap-1.5 bg-green-600/20 border border-green-500/35 text-green-300 hover:bg-green-600/30 hover:border-green-500/60 transition-all">
+                <MessageCircle className="w-3.5 h-3.5" /> WhatsApp Order
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-1 pt-1 border-t border-white/5">
+            <Star className="w-3 h-3 text-gold-400 fill-current" />
+            <span className="text-xs font-medium text-white">{group.rating}</span>
+            <span className="text-xs text-dark-500">({group.reviews})</span>
+          </div>
+        </div>
+      </motion.div>
+
+      <AnimatePresence>
+        {showWA && <WhatsAppModal message={waMessage} onClose={() => setShowWA(false)} />}
+      </AnimatePresence>
+    </>
+  );
+}
+
+/* ════════════════════════════════════════════════════════════════
    SILKSCREEN FRAME CARD (A5 / A4 / A3 size selector)
 ══════════════════════════════════════════════════════════════════ */
 function SilkscreenFrameCard() {
@@ -659,12 +764,13 @@ function SilkscreenFrameCard() {
         className="card card-hover group flex flex-col">
 
         <div className="relative h-52 rounded-t-2xl overflow-hidden bg-dark-900">
-          <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-dark-800 to-dark-700">
-            <div className="w-20 h-20 rounded-xl shadow-xl group-hover:scale-110 transition-transform duration-500 flex items-center justify-center"
-              style={{ background: 'linear-gradient(135deg, #94a3b850, #94a3b820)', border: '1px solid #94a3b840' }}>
-              <Package className="w-8 h-8 opacity-40" style={{ color: '#94a3b8' }} />
-            </div>
-          </div>
+          <Image
+            src={img('silkscreen frame.png')}
+            alt="Silkscreen Frame"
+            fill
+            className="object-contain p-4 group-hover:scale-105 transition-transform duration-500"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
           <span className="absolute top-2 right-2 badge bg-white/5 text-dark-400 border border-white/8 text-xs z-10">
             <Tag className="w-2.5 h-2.5" /> Frame
           </span>
@@ -970,8 +1076,14 @@ export default function ProductCatalog() {
   const duplexBags   = displayItems.filter(i => i.type === 'grouped' && (i.data as GroupedProduct).category === 'duplex_bags');
   const takeawayBags = displayItems.filter(i => i.type === 'grouped' && (i.data as GroupedProduct).category === 'takeaway_bags');
   const rollItems    = displayItems.filter(i => i.type === 'roll');
-  const boxItems     = displayItems.filter(i => i.type === 'single' && i.data.category === 'cake_boxes');
   const rawItems     = displayItems.filter(i => i.type === 'single' && i.data.category === 'raw_materials');
+
+  const visibleBoxGroups = useMemo(() => {
+    const q = searchQuery.toLowerCase().trim();
+    if (activeCategory !== 'all' && activeCategory !== 'cake_boxes') return [];
+    if (ecoOnly) return [];
+    return CAKE_BOX_GROUPS.filter(g => !q || g.name.toLowerCase().includes(q));
+  }, [activeCategory, searchQuery, ecoOnly]);
 
   const showBagHint = activeCategory === 'all' || activeCategory === 'kraft_bags' || activeCategory === 'duplex_bags' || activeCategory === 'takeaway_bags';
 
@@ -1073,7 +1185,7 @@ export default function ProductCatalog() {
                 </button>
               ))}
             </div>
-            <span className="text-sm text-dark-400 ml-auto">{displayItems.length} products</span>
+            <span className="text-sm text-dark-400 ml-auto">{displayItems.length + visibleBoxGroups.length} products</span>
           </div>
 
           {/* Mobile category pills */}
@@ -1146,11 +1258,11 @@ export default function ProductCatalog() {
               )}
 
               {/* Cake & Cookies Boxes */}
-              {boxItems.length > 0 && (
+              {visibleBoxGroups.length > 0 && (
                 <div>
                   {(activeCategory === 'all' || activeCategory === 'cake_boxes') && <SectionHeader icon={Package} label="Cake & Cookies Boxes" desc="Rigid food-grade boxes. Min. 500 pcs per order." />}
                   <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3">
-                    {boxItems.map(item => <SingleCard key={(item.data as SingleProduct).id} product={item.data as SingleProduct} />)}
+                    {visibleBoxGroups.map(g => <CakeBoxGroupCard key={g.id} group={g} />)}
                   </div>
                 </div>
               )}
